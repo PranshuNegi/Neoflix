@@ -1,0 +1,54 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+<%- include('includes/nav.ejs') %>
+
+<main>
+    <form class="product-form" action="http://localhost:3000/admin/add-product" method="POST">
+        <div class="form-control">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="<% if (editing) { %><%= user.name %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="date_of_birth">Date of Birth</label>
+            <input type="date" name="date_of_birth" id="date_of_birth" value="<% if (editing) { %><%= user.date_of_birth %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="age">Age</label>
+            <input type="number" name="age" id="age" value="<% if (editing) { %><%= user.age %><% } %>">
+        </div>
+            <label for="male">Male</label>
+            <% if (editing && user.gender == 0){ %>
+            <input type="radio" id="male" name="gender" value="male" checked>
+            <% } else { %>
+            <input type="radio" id="male" name="gender" value="male">
+            <% } %>
+            <label for="female">Female</label>
+            <% if (editing && user.gender == 1){ %>
+            <input type="radio" id="female" name="gender" value="female" checked>
+            <% } else { %>
+            <input type="radio" id="female" name="gender" value="female">
+            <% } %>
+            <label for="other">Other</label>
+            <% if (editing && user.gender == 2){ %>
+            <input type="radio" id="other" name="gender" value="other" checked>
+            <% } else { %>
+            <input type="radio" id="other" name="gender" value="other">
+            <% } %>
+        <div class="form-control">
+        <% if (!editing) { %>
+            <label for="username">UserName</label>
+            <input type="text" name="username" id="username" value="">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="">
+            <label for="cpassword">Confirm Password</label>
+            <input type="password" name="cpassword" id="cpassword" value="">
+        <% } %>
+        </div>
+        <button class="btn" type="submit"><% if (editing) { %>Update Profile<% } else { %>SignUp<% } %></button>
+    </form>
+</main>
+<%- include('includes/end.ejs') %>

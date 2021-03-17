@@ -1,0 +1,48 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<%- include('includes/nav.ejs') %>
+
+<main>
+    <div class="grid">
+        <% for(var i=0; i < itlist.length; i++) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title">
+                        <%=itlist[i].title%>
+                    </h1>
+                </header>
+                <div class="card__image">
+                    <img src = "<%=itlist[i].image%>" alt= "<%=itlist[i].title%>" height="150px">
+                </div>
+                <div class="card_content">
+                    <h3 class="product__description">
+                        Date of Release: <%=itlist[i].date_of_release%>
+                    </h3>
+                    <h3 class="product__description">
+                        Rating: <%=itlist[i].rating%>
+                    </h3>
+                    <h3 class="product__description">
+                        Duration: <%=itlist[i].duration%>
+                    </h3>
+                    <h3 class="product__description">
+                        Genre: <%=itlist[i].genre%>
+                    </h3>
+                </div>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Watch
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
+                </div>
+            </article>
+         <% } %>
+    </div>
+</main>
+<%- include('includes/end.ejs') %>

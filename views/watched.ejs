@@ -1,0 +1,119 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/stars.css">
+</head>
+
+<body>
+<%- include('includes/nav.ejs') %>
+
+<main>
+    <div class="grid">
+        <% for(var i=0; i < itlist.length; i++) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h1 class="product__title">
+                        <%=itlist[i].title%>
+                    </h1>
+                </header>
+                <div class="card__image">
+                    <img src = "<%=itlist[i].image%>" alt= "<%=itlist[i].title%>" height="200px">
+                </div>
+                <div class="card_content">
+                    <h3 class="product__description">
+                        Date of Release: <%=itlist[i].date_of_release%>
+                    </h3>
+                    <h3 class="product__description">
+                        Average Rating: <%=itlist[i].rating%>
+                    </h3>
+                    <h3 class="product__description">
+                        Number of times watched: <%=itlist[i].num_watched%>
+                    </h3>
+                    <h3 class="product__description">
+                        Duration: <%=itlist[i].duration%>
+                    </h3>
+                    <h3 class="product__description">
+                        Genre: <%=itlist[i].genre%>
+                    </h3>
+                </div>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Watch Again
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
+                </div>
+                <div class="card__actions">
+                    <h3 class="product__description">
+                        Your Rating:
+                    </h3>
+                <div class="stars">
+                    <form action="">
+                        <% if (itlist[i].rating == 5) { %>
+                        <input class="star star-5" id="star-5" type="radio" name="star"/ checked>
+                        <% } else { %>
+                        <input class="star star-5" id="star-5" type="radio" name="star"/>
+                        <% } %>
+                        <label class="star star-5" for="star-5"></label>
+                        <% if (itlist[i].rating == 4) { %>
+                        <input class="star star-4" id="star-4" type="radio" name="star"/ checked>
+                        <% } else { %>
+                        <input class="star star-4" id="star-4" type="radio" name="star"/>
+                        <% } %>
+                        <label class="star star-4" for="star-4"></label>
+                        <% if (itlist[i].rating == 3) { %>
+                        <input class="star star-3" id="star-3" type="radio" name="star"/ checked>
+                        <% } else { %>
+                        <input class="star star-3" id="star-3" type="radio" name="star"/>
+                        <% } %>
+                        <label class="star star-3" for="star-3"></label>
+                        <% if (itlist[i].rating == 2) { %>
+                        <input class="star star-2" id="star-2" type="radio" name="star"/ checked>
+                        <% } else { %>
+                        <input class="star star-2" id="star-2" type="radio" name="star"/>
+                        <% } %>
+                        <label class="star star-2" for="star-2"></label>
+                        <% if (itlist[i].rating == 1) { %>
+                        <input class="star star-1" id="star-1" type="radio" name="star"/ checked>
+                        <% } else { %>
+                        <input class="star star-1" id="star-1" type="radio" name="star"/>
+                        <% } %>
+                        <label class="star star-1" for="star-1"></label>
+                    </form>
+                </div>
+                </div>
+                <% if (itlist[i].rated) { %>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Update Rating
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
+                </div>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Delete Rating
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
+                </div>
+                <% } else { %>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Give Rating
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
+                </div>
+                <% } %>
+            </article>
+         <% } %>
+    </div>
+</main>
+<%- include('includes/end.ejs') %>
