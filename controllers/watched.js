@@ -10,8 +10,8 @@ exports.get_test = (req,res,next) => {
         	date_of_release: "10-08-2006",
         	rating: 5,
         	num_watched: 2,
-            rated: false,
-            rating: 0,
+            rated: true,
+            user_rating: 4,
         	duration: "95 mins",
         	genre: "Musical Drama"}]
     });
