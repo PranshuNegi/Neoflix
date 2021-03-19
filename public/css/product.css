@@ -16,6 +16,10 @@
     text-align: center;
 }
 
+.d__title {
+    font-size: 1.2rem;
+    text-align: left;
+}
 .product__price {
     text-align: center;
     color: #4d4d4d;

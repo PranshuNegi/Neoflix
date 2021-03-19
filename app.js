@@ -10,6 +10,7 @@ const watched = require('./routes/watched');
 const adduser = require('./routes/adduser');
 const editprofile = require('./routes/editprofile');
 const login = require('./routes/login');
+const details = require('./routes/details');
 const pool =  require('./utils/database');
 
 
@@ -27,4 +28,5 @@ app.use('/watched',watched);
 app.use('/adduser',adduser);
 app.use('/editprofile',editprofile);
 app.use('/login',login);
+app.use('/details',details);
 app.listen(3000);

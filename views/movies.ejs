@@ -6,7 +6,6 @@
 
 <body>
 <%- include('includes/nav.ejs') %>
-
 <main>
     <div class="grid">
         <% for(var i=0; i < itlist.length; i++) { %>
@@ -32,6 +31,14 @@
                     <h3 class="product__description">
                         Genre: <%=itlist[i].genre%>
                     </h3>
+                </div>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    More Details
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
                 </div>
                 <div class="card__actions">
                 <form action="/cart" method="post">

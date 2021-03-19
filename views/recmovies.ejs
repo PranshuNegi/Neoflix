@@ -36,6 +36,14 @@
                 <div class="card__actions">
                 <form action="/cart" method="post">
                     <button class="btn" type="submit">
+                    More Details
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                </form>
+                </div>
+                <div class="card__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
                     Watch
                     </button>
                     <input type="hidden" name="product_id" value="<%= itlist[i].id %>">

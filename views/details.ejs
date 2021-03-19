@@ -1,0 +1,64 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+
+<main>
+            <h1 class="d__title">
+                <%=mdetails.title%>
+            </h1>
+            <div class="d__image">
+                    <img src = "<%=mdetails.image%>" alt= "<%=mdetails.title%>" height="400px">
+                </div>
+            <div class="card_content">
+                    <b> Plot: </b> <%=mdetails.plot%>
+            </div>
+            <div class="card_content">
+                    <b> Date of Release: </b> <%=mdetails.date_of_release%>
+            </div>
+            <div class="card_content">
+                    <b> Duration </b> <%=mdetails.duration%>
+            </div>
+            <div class="card_content">
+                    <b> IMDB Rating: </b> <%=mdetails.rating%>
+            </div>
+            <div class="card_content">
+                    <b> Genre: </b> <%=mdetails.genre%>
+            </div>
+            <div class="card_content">
+                    <b> Actor: </b>
+                    <ul>
+                        <% for(var i=0; i < mdetails.actor.length; i++) { %>
+                        <li> <%=mdetails.actor[i]%> </li>
+                        <% } %>
+                    </ul>
+            </div>
+            <div class="card_content">
+                    <b> Director: </b>
+                    <ul>
+                        <% for(var i=0; i < mdetails.director.length; i++) { %>
+                        <li> <%=mdetails.director[i]%> </li>
+                        <% } %>
+                    </ul>
+            </div>
+            <div class="d__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Watch
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= mdetails.id %>">
+                </form>
+                </div>
+                <div class="d__actions">
+                <form action="/cart" method="post">
+                    <button class="btn" type="submit">
+                    Go Back
+                    </button>
+                    <input type="hidden" name="product_id" value="<%= mdetails.id %>">
+                </form>
+                </div>
+</main>
+<%- include('includes/end.ejs') %>
