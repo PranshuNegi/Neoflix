@@ -8,6 +8,13 @@
 <%- include('includes/nav.ejs') %>
 
 <main>
+    <input type="text" id="search" placeholder="Search for movies.." title="Type in a name">
+    <form action="/cart" method="post">
+        <button class="btn" type="submit">
+            Filter Movies based on other attributes   
+        </button>
+        <input type="hidden" name="product_id" value="">
+    </form>
     <div class="grid">
         <% for(var i=0; i < itlist.length; i++) { %>
             <article class="card product-item">
@@ -24,7 +31,7 @@
                         Date of Release: <%=itlist[i].date_of_release%>
                     </h3>
                     <h3 class="product__description">
-                        Average Rating: <%=itlist[i].rating%>
+                        IMDB rating: <%=itlist[i].rating%>
                     </h3>
                     <h3 class="product__description">
                         Duration: <%=itlist[i].duration%>

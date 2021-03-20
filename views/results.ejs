@@ -5,15 +5,8 @@
 </head>
 
 <body>
-<%- include('includes/nav.ejs') %>
+<h1 align="center"> Results based on your search</h1>
 <main>
-    <input type="text" id="search" placeholder="Search for movies.." title="Type in a name">
-    <form action="/cart" method="post">
-        <button class="btn" type="submit">
-            Filter Movies based on other attributes   
-        </button>
-        <input type="hidden" name="product_id" value="">
-    </form>
     </div>
     <div class="grid">
         <% for(var i=0; i < itlist.length; i++) { %>
@@ -65,5 +58,11 @@
             </article>
          <% } %>
     </div>
+    <form action="/cart" method="post">
+        <button class="btn" type="submit">
+            Go Back  
+        </button>
+        <input type="hidden" name="product_id" value="">
+    </form>
 </main>
 <%- include('includes/end.ejs') %>

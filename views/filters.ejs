@@ -1,0 +1,70 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body style="background-color:white">
+
+<main>
+	<div style="color:black">
+	<table width="100%"">
+	<tr>
+	<td width="33%">
+	<h1>
+        Genre
+    </h1>
+    </td>
+    <td width="33%">
+	<h1>
+        Language
+    </h1>
+    </td>
+    <td>
+	<h1>
+        IMDB Ratings
+    </h1>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <form action="http://localhost:3000/admin/add-product" method="POST">
+    <% for(var i=0; i < genre.length; i++) { %>
+            <input type="checkbox" name="genre" value="<%=genre[i]%>">
+			<label for="genre"><%=genre[i]%></label><br>
+	<% } %>
+    </form>
+    </td>
+    <td>
+    <form action="http://localhost:3000/admin/add-product" method="POST">
+    <% for(var i=0; i < language.length; i++) { %>
+            <input type="checkbox" name="genre" value="<%=language[i]%>">
+			<label for="genre"><%=language[i]%></label><br>
+	<% } %>
+    </form>
+    </td>
+    <td>
+    <form action="http://localhost:3000/admin/add-product" method="POST">
+		<input type="checkbox" name="rating" value="0-2">
+		<label for="rating">0-2</label><br>
+		<input type="checkbox" name="rating" value="2-4">
+		<label for="rating">2-4</label><br>
+		<input type="checkbox" name="rating" value="4-6">
+		<label for="rating">4-6</label><br>
+		<input type="checkbox" name="rating" value="6-8">
+		<label for="rating">6-8</label><br>
+		<input type="checkbox" name="rating" value="8-10">
+		<label for="rating">8-10</label><br>
+	</form>
+	</td>
+    </tr>
+    <tr>
+    <td></td>
+    <td>
+    <button class="btn" type="submit">Apply Filters</button>
+    </td>
+    <td></td>
+    </tr>
+    </table>
+    </div>
+</main>
+<%- include('includes/end.ejs') %>

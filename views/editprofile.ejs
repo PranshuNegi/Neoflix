@@ -20,24 +20,35 @@
             <label for="age">Age</label>
             <input type="number" name="age" id="age" value="<% if (editing) { %><%= user.age %><% } %>">
         </div>
-            <label for="male">Male</label>
             <% if (editing && user.gender == 0){ %>
             <input type="radio" id="male" name="gender" value="male" checked>
             <% } else { %>
             <input type="radio" id="male" name="gender" value="male">
             <% } %>
-            <label for="female">Female</label>
+            <label for="male">Male</label>
             <% if (editing && user.gender == 1){ %>
             <input type="radio" id="female" name="gender" value="female" checked>
             <% } else { %>
             <input type="radio" id="female" name="gender" value="female">
             <% } %>
-            <label for="other">Other</label>
+            <label for="female">Female</label>
             <% if (editing && user.gender == 2){ %>
             <input type="radio" id="other" name="gender" value="other" checked>
             <% } else { %>
             <input type="radio" id="other" name="gender" value="other">
             <% } %>
+            <label for="other">Other</label><br>
+            <label for="favgenre">Favourite Genre</label><br>
+            <% for(var i=0; i < genre.length; i++) { %>
+            <input type="checkbox" name="genre" value="<%=genre[i]%>">
+            <label for="genre"><%=genre[i]%></label><br>
+            <% } %>
+            <label for="favactor">Favourite Actor</label><br>
+            <select id="favactor" name="favactor" multiple>
+            <% for(var i=0; i < actor.length; i++) { %>
+            <option value="<%=actor[i]%>"><%=actor[i]%></option>
+            <% } %>
+            </select>
         <div class="form-control">
         <% if (!editing) { %>
             <label for="username">UserName</label>

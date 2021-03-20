@@ -11,6 +11,8 @@ const adduser = require('./routes/adduser');
 const editprofile = require('./routes/editprofile');
 const login = require('./routes/login');
 const details = require('./routes/details');
+const filters = require('./routes/filters');
+const results = require('./routes/results');
 const pool =  require('./utils/database');
 
 
@@ -29,4 +31,6 @@ app.use('/adduser',adduser);
 app.use('/editprofile',editprofile);
 app.use('/login',login);
 app.use('/details',details);
+app.use('/filters',filters);
+app.use('/results',results);
 app.listen(3000);

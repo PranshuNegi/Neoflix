@@ -4,9 +4,10 @@
 <link rel="stylesheet" href="/css/main.css">
 </head>
 
-<body>
+<body style="background-color:white">
 
 <main>
+    <div>
             <h1 class="d__title">
                 <%=mdetails.title%>
             </h1>
@@ -23,10 +24,13 @@
                     <b> Duration </b> <%=mdetails.duration%>
             </div>
             <div class="card_content">
-                    <b> IMDB Rating: </b> <%=mdetails.rating%>
+                    <b> IMDB Rating: </b> <%=mdetails.imdbrating%>
             </div>
             <div class="card_content">
                     <b> Genre: </b> <%=mdetails.genre%>
+            </div>
+            <div class="card_content">
+                    <b> Average User Rating: </b> <%=mdetails.avgrating%>
             </div>
             <div class="card_content">
                     <b> Actor: </b>
@@ -60,5 +64,6 @@
                     <input type="hidden" name="product_id" value="<%= mdetails.id %>">
                 </form>
                 </div>
+            </div>
 </main>
 <%- include('includes/end.ejs') %>
