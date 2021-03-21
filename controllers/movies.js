@@ -13,6 +13,14 @@ exports.get_test = (req,res,next) => {
         	duration: "120 mins",
         	genre: "Horror Comedy"},
             {
+            title: "Zero",
+            image: "https://images.livemint.com/rf/Image-621x414/LiveMint/Period2/2018/12/22/Photos/Processed/zero_film_review-k8AF--621x414@LiveMint.jpg",
+            date_of_release: "21-12-2018",
+            rating: 5.4,
+            watched: false,
+            duration: "164 mins",
+            genre: "Romance Comedy"},
+            {
             title: "High School Musical",
             image: "https://i.pinimg.com/originals/6c/f9/fa/6cf9fa2c8f0cd173857da1ea77047fd3.jpg",
             date_of_release: "10-08-2006",
@@ -27,6 +35,14 @@ exports.get_test = (req,res,next) => {
             rating: 4,
             watched: false,
             duration: "100 mins",
-            genre: "Musical Drama"}]
+            genre: "Musical Drama"},
+            {title: "Toy Story",
+            image: "https://image.tmdb.org/t/p/w440_and_h660_face/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
+            plot: "A cowboy doll is profoundly threatened and jealous when a new spaceman figure supplants him as top toy in a boy's room.",
+            date_of_release: "22-11-1995",
+            rating: 7.8,
+            watched: true,
+            duration: "81 mins",
+            genre: "Animated Comedy"}]
     });
 };
