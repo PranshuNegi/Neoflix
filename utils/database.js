@@ -1,14 +1,22 @@
-const { Pool } = require('pg');
+const neo4j = require('neo4j-driver')
 
-const pool = new Pool({
-    user: 'postgres',     //your postgres username
-    host: 'localhost', 
-    database: 'eshop', //your local database 
-    password: 'postgres', //your postgres user password
-    port: 5432, //your postgres running port
-});
+const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
+const session = driver.session()
+const personName = 'Alice'
 
-pool.connect();
+try {
+  const result = await session.run(
+    'CREATE (a:Person {name: $name}) RETURN a',
+    { name: personName }
+  )
 
+  const singleRecord = result.records[0]
+  const node = singleRecord.get(0)
 
-module.exports = pool;
+  console.log(node.properties.name)
+} finally {
+  await session.close()
+}
+
+// on application exit:
+await driver.close()
