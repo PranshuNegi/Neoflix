@@ -1,5 +1,5 @@
 
-const pool= require('../utils/database');
+// const pool= require('../utils/database');
 module.exports = class Prod{
     constructor( title, image, price, quantity){
         this.title = title;
