@@ -1,5 +1,5 @@
 const Movie = require('../models/user');
-
+var neo4j = require('../models/neo4j');
 exports.get_test = (req,res,next) => {
 	res.render('adduser', {
         pageTitle: 'Sign Up',
@@ -24,15 +24,7 @@ exports.post_test = (req,res,next) => {
         res.redirect('/adduser');
         console.log("Error");
     }
-    var neo4j = require('neo4j-driver')
-    var driver = neo4j.driver(
-        'neo4j://localhost',
-        neo4j.auth.basic('neo4j', 'dbislab')
-    )
-    var session = driver.session({
-        database: 'neo4j',
-        defaultAccessMode: neo4j.session.WRITE
-    })
+    var session = neo4j.session;
     session
         .run('CREATE (:user {username: $username,name: $name,dob: $dob,age: $age,gender: $gender, password: $password});', {
         username: uname, name: name, dob: dob, age: age, gender: gender, password: pswd 
