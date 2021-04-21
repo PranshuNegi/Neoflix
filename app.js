@@ -13,34 +13,14 @@ const login = require('./routes/login');
 const details = require('./routes/details');
 const filters = require('./routes/filters');
 const results = require('./routes/results');
-const pool =  require('./utils/database');
-
+// const pool =  require('./utils/database');
+const neo = require('./models/neo4j.js')
 
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(express.static(path.join(__dirname,'public')));
-// Bind Neo4j to the request
-// app.use((req, res, next) => {
-//     req.neo4j = require('./models/neo4j')
-//     next()
-//   })
-  // Convert response from neo4j types to native types
-// app.use(require('./middleware/neo4j-type-handler'))
-  
-//   app.use(require('./routes'));
-  
-  
-  // Handle any constraint errors thrown by Neo4j
-// app.use(require('./middleware/neo4j-error-handler'))
-  
-// app.use(function (req, res, next) {
-//     var err = new Error('Not Found');
-//     err.status = 404;
-//     next(err);
-// });
-
 app.use('/admin',adminRo);
 app.use('/movies',movies);
 app.use('/recmovies',recmovies);

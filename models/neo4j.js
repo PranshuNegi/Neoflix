@@ -1,39 +1,22 @@
-const neo4j = require('neo4j-driver')
-const config = require('./config')
-
-const driver = neo4j.driver(config.neo4j.url, neo4j.auth.basic(config.neo4j.username, config.neo4j.password))
-
-module.exports = {
-    read: (cypher, params = {}, database = config.neo4j.database) => {
-        const session = driver.session({
-            defaultAccessMode: neo4j.session.READ,
-            database,
-        })
-
-        return session.run(cypher, params)
-            .then(res => {
-                session.close()
-                return res
-            })
-            .catch(e => {
-                session.close()
-                throw e
-            })
-    },
-    write: (cypher, params = {}, database = config.neo4j.database) => {
-        const session = driver.session({
-            defaultAccessMode: neo4j.session.WRITE,
-            database,
-        })
-
-        return session.run(cypher, params)
-            .then(res => {
-                session.close()
-                return res
-            })
-            .catch(e => {
-                session.close()
-                throw e
-            })
-    },
-}
+var neo4j = require('neo4j-driver')
+var driver = neo4j.driver(
+    'neo4j://localhost',
+    neo4j.auth.basic('neo4j', 'megh@neo4j')
+  )
+  var session = driver.session({
+    database: 'neo4j',
+    defaultAccessMode: neo4j.session.WRITE
+  })
+  session
+    .run('CREATE (a:Person {name: $name}) RETURN a.name as name', {
+      name: 'Alison'
+    })
+    .then(result => {
+      result.records.forEach(record => {
+        console.log(record.get('name'))
+      })
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .then(() => session.close())
