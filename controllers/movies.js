@@ -1,6 +1,7 @@
 const Movie = require('../models/movie');
 
 exports.get_test = (req,res,next) => {
+    console.log(user);
 	res.render('movies', {
         pageTitle: 'All Movies',
         path: '/movies',

@@ -7,7 +7,7 @@
 <%- include('includes/navigation.ejs') %>
 
 <main>
-    <form class="product-form" action="http://localhost:3000/admin/add-product" method="POST">
+    <form class="product-form" action="http://localhost:3000/adduser" method="POST">
         <div class="form-control">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" value="<% if (editing) { %><%= user.name %><% } %>">
