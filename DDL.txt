@@ -65,4 +65,8 @@ FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
 MATCH ( n : movie { movieId : row.sim_movieId })
 MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : row.relevance }]-( a );
-
+LOAD CSV WITH HEADERS FROM "file:///genome-scores.csv" AS row
+FIELDTERMINATOR ','
+MATCH ( m : movie { movieId : row.movieId })
+MATCH ( t:tag { tagId : row.tagId })
+MERGE ( m )-[: HAS_TAG { scores : row.relevance }]->( t );
