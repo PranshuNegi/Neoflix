@@ -4,7 +4,8 @@ exports.get_test = (req,res,next) => {
 	res.render('login', {
         pageTitle: 'Login',
         path: '/login',
-        editing: false
+        editing: false,
+        status: 0
     });
 };
 
@@ -26,14 +27,16 @@ exports.post_test = (req,res,next) => {
             res.redirect('/movies');
         }
         else{
-            res.json({ status: 401, message : 'Please enter correct username or password' }) 
+            res.render('login', {
+                pageTitle: 'Login',
+                path: '/login',
+                editing: false,
+                status: 401
+            });
         }
-
         })
         })
         .catch(error => {
         console.log(error)
-        res.redirect('/login');
         })
-        .then(() => session.close())
 };

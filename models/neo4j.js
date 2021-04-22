@@ -1,7 +1,7 @@
 var neo4j = require('neo4j-driver')
 var driver = neo4j.driver(
     'neo4j://localhost',
-    neo4j.auth.basic('neo4j', 'megh@neo4j')
+    neo4j.auth.basic('neo4j', 'dbislab')
   )
   var session = driver.session({
     database: 'neo4j',

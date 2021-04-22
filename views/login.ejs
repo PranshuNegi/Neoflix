@@ -6,6 +6,9 @@
 <%- include('includes/navigation.ejs') %>
 
 <main>
+    <% if(status == 401) {%>
+        <script>alert("Please enter correct username and password.");</script>
+    <% } %>
     <form class="product-form" action="http://localhost:3000/login" method="POST">
     	<div class="form-control">
             <label for="username">UserName</label>

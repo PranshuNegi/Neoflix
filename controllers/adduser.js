@@ -37,6 +37,5 @@ exports.post_test = (req,res,next) => {
         .catch(error => {
         console.log(error)
         })
-        .then(() => session.close())
         res.redirect('/login')
 };
