@@ -1,69 +1,69 @@
-CREATE CONSTRAINT movie_id_node ON ( m : Movie ) ASSERT ( m . movieId ) IS NODE KEY
-CREATE CONSTRAINT user_name_node ON ( u : User ) ASSERT ( u . username ) IS NODE KEY
-CREATE CONSTRAINT person_id_node ON ( p : Person ) ASSERT ( p . personId ) IS NODE KEY
-CREATE CONSTRAINT genre_node ON ( g : Genre ) ASSERT ( g . name ) IS NODE KEY
-CREATE CONSTRAINT tag_node ON ( t : Tag ) ASSERT ( t .tagId) IS NODE KEY
-CREATE CONSTRAINT movie_title_existence ON ( m : Movie ) ASSERT exists ( m . title )
+CREATE CONSTRAINT movie_id_node ON ( m : Movie ) ASSERT ( m.movieId ) IS NODE KEY;
+CREATE CONSTRAINT user_name_node ON ( u : User ) ASSERT ( u.username ) IS NODE KEY;
+CREATE CONSTRAINT person_id_node ON ( p : Person ) ASSERT ( p.personId ) IS NODE KEY;
+CREATE CONSTRAINT genre_node ON ( g : Genre ) ASSERT ( g.name ) IS NODE KEY;
+CREATE CONSTRAINT tag_node ON ( t : Tag ) ASSERT ( t.tagId) IS NODE KEY;
+CREATE CONSTRAINT movie_title_existence ON ( m : Movie ) ASSERT exists ( m.title );
 CREATE CONSTRAINT ratingExists IF NOT EXISTS ON ()-[ r : WATCHED ]-() ASSERT
-exists ( r . rating )
+exists ( r.rating );
 LOAD CSV WITH HEADERS FROM "file:///users.csv" AS row FIELDTERMINATOR ','
-CREATE (: user { name : row . name , dob : row . dob , age : row . age , gender : row . gender , username :
-row . username });
+CREATE (: user { name : row.name , dob : row.dob , age : row.age , gender : row.gender , username :
+row.username });
 LOAD CSV WITH HEADERS FROM "file:///movies.csv" AS row FIELDTERMINATOR ','
-CREATE (: movie { movieId : row . movieId , title : row . title , released : row . released ,
-imdbRating : row . imdbRating , duration : row . runtime , plot : row . plot , poster : row . poster, language:
+CREATE (: movie { movieId : row.movieId , title : row.title , released : row.released ,
+imdbRating : row.imdbRating , duration : row.runtime , plot : row.plot , poster : row.poster, language:
 row.languages });
 LOAD CSV WITH HEADERS FROM "file:///genres.csv" AS row FIELDTERMINATOR ','
-CREATE (: genre { name : row . name });
+CREATE (: genre { name : row.name });
 LOAD CSV WITH HEADERS FROM "file:///person_actor.csv" AS row FIELDTERMINATOR ','
-CREATE (: person : actor { personId : row . personId , name : row . name });
+CREATE (: person : actor { personId : row.personId , name : row.name });
 LOAD CSV WITH HEADERS FROM "file:///person_director.csv" AS row FIELDTERMINATOR ','
-CREATE (: person : director { personId : row . personId , name : row . name });
+CREATE (: person : director { personId : row.personId , name : row.name });
 LOAD CSV WITH HEADERS FROM "file:///person_actor_director.csv" AS row
 FIELDTERMINATOR ','
-CREATE (: person : director : actor { personId : row . personId , name : row . name });
-LOAD CSV WITH HEADERS FROM "file:///genome_tags.csv" AS row FIELDTERMINATOR ','
-CREATE (: tag { tagId : row . tagId , name : row . name });
+CREATE (: person : director : actor { personId : row.personId , name : row.name });
+LOAD CSV WITH HEADERS FROM "file:///genome-tags.csv" AS row FIELDTERMINATOR ','
+CREATE (: tag { tagId : row.tagId , name : row.name });
 LOAD CSV WITH HEADERS FROM "file:///ratings.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( u : user { username : row . username })
-MATCH ( m : movie { movieId : row . movieId })
-MERGE ( u )-[: WATCHED { rating : row . rating }]->( m );
-LOAD CSV WITH HEADERS FROM "file:///genome_scores.csv" AS row
+MATCH ( u : user { username : row.username })
+MATCH ( m : movie { movieId : row.movieId })
+MERGE ( u )-[: WATCHED { rating : row.rating }]->( m );
+LOAD CSV WITH HEADERS FROM "file:///genome-scores.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( m : movie { movieId : row . movieId })
-MATCH ( t:tag { tagId : row . tagId })
-MERGE ( m )-[: HAS_TAG { relevance : row . score }]->( t );
+MATCH ( m : movie { movieId : row.movieId })
+MATCH ( t:tag { tagId : row.tagId })
+MERGE ( m )-[: HAS_TAG { relevance : row.relevance }]->( t );
 LOAD CSV WITH HEADERS FROM "file:///actor.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( p : actor { personId : row . personId })
-MATCH ( m : movie { movieId : row . movieId })
+MATCH ( p : actor { personId : row.personId })
+MATCH ( m : movie { movieId : row.movieId })
 MERGE ( p )-[: ACTED_IN ]->( m );
 LOAD CSV WITH HEADERS FROM "file:///director.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( p : director { personId : row . personId })
-MATCH ( m : movie { movieId : row . movieId })
+MATCH ( p : director { personId : row.personId })
+MATCH ( m : movie { movieId : row.movieId })
 MERGE ( p )-[: DIRECTED_IN ]->( m );
 LOAD CSV WITH HEADERS FROM "file:///fav-actor.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( u : user { username : row . username })
-MATCH ( a : actor { personId : row . actorId })
+MATCH ( u : user { username : row.username })
+MATCH ( a : actor { personId : row.actorId })
 MERGE ( u )-[: FAV_ACTOR ]->( a );
 LOAD CSV WITH HEADERS FROM "file:///fav-genre.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( u : user { username : row . username })
-MATCH ( a : genre { name : row . genres })
+MATCH ( u : user { username : row.username })
+MATCH ( a : genre { name : row.genres })
 MERGE ( u )-[: FAV_GENRE ]->( a );
 LOAD CSV WITH HEADERS FROM "file:///movies_genres.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( m : movie { movieId : row . movieId })
-MATCH ( a : genre { name : row . genres })
+MATCH ( m : movie { movieId : row.movieId })
+MATCH ( a : genre { name : row.genres })
 MERGE ( m )-[: OF_GENRE ]->( a );
-LOAD CSV WITH HEADERS FROM "file:///movies_movies.csv" AS row
+LOAD CSV WITH HEADERS FROM "file:///movie_sim_movie.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( m : movie { movieId : row . movieId })
-MATCH ( n : movie { movieId : row . sim_movieId })
-MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : row . relevance }]-( a );
+MATCH ( m : movie { movieId : row.movieId })
+MATCH ( n : movie { movieId : row.sim_movieId })
+MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : row.relevance }]-( a );
 CREATE INDEX ON : users ( username );
 CREATE INDEX ON : movies ( movieId );
 CREATE INDEX ON : movies ( title );
