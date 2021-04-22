@@ -29,17 +29,17 @@ FIELDTERMINATOR ','
 MATCH ( u : user { username : row.username })
 MATCH ( m : movie { movieId : row.movieId })
 MERGE ( u )-[: WATCHED { rating : row.rating }]->( m );
-CREATE INDEX ON : users ( username );
-CREATE INDEX ON : movies ( movieId );
-CREATE INDEX ON : movies ( title );
-CREATE INDEX ON : genres ( name );
+CREATE INDEX ON : user ( username );
+CREATE INDEX ON : movie ( movieId );
+CREATE INDEX ON : movie ( title );
+CREATE INDEX ON : genre ( name );
 CREATE INDEX ON : person ( personId );
 CREATE INDEX ON : tag ( tagId );
 LOAD CSV WITH HEADERS FROM "file:///genome-scores.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
 MATCH ( t:tag { tagId : row.tagId })
-MERGE ( m )-[: HAS_TAG { relevance : row.relevance }]->( t );
+MERGE ( m )-[: HAS_TAG { scores : row.scores }]->( t );
 LOAD CSV WITH HEADERS FROM "file:///actor.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( p : actor { personId : row.personId })
