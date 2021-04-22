@@ -7,12 +7,6 @@
 <%- include('includes/navigation.ejs') %>
 
 <main>
-    <% if(status == 401) {%>
-        <script>alert("Username already taken! Please choose a different username.");</script>
-    <% } %>
-    <% if(status == 404) {%>
-        <script>alert("Please re-enter Password");</script>
-    <% } %>
     <form class="product-form" action="http://localhost:3000/adduser" method="POST">
         <div class="form-control">
             <label for="name">Name</label>
@@ -65,14 +59,25 @@
             <% } %>
             </select>
         <div class="form-control">
-            <label for="username">UserName</label>
+            <label for="username">UserName<br>
+            <font style="color:red;font-size:15px" >*Username should be atmost 256 chars.</font></label>
             <input type="text" name="username" id="username" value="<% if (editing) { %><%= user.username %><% } %>">
-            <label for="password">Password</label>
+            <% if(status == 401) {%>
+                <p style="color:red;font-size:15px" >**Username already taken! Please choose a different username.</p>
+            <% } %>
+            <label for="password">Password<br>
+            <font style="color:red;font-size:15px" >***Password should contain at least one special character, one digit and one letter and should be of at least length 6</font></label>
             <input type="password" name="password" id="password" value="">
             <label for="cpassword">Confirm Password</label>
             <input type="password" name="cpassword" id="cpassword" value="">
+            <% if(status == 404) {%>
+                <p style="color:red;font-size:15px">****Please re-enter Password.</p>
+            <% } %>
+            <% if(status == 403) {%>
+                <p style="color:red;font-size:15px">****Choose a different Password.</p>
+            <% } %>
         </div>
-        <button class="btn" type="submit"><% if (editing) { %>Update Profile<% } else { %>SignUp<% } %></button>
+        <button class="btn" type="submit">SignUp</button>
     </form>
 </main>
 <%- include('includes/end.ejs') %>

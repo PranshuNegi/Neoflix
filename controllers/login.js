@@ -19,6 +19,14 @@ exports.post_test = (req,res,next) => {
         username: uname
         })
         .then(result => {
+        if(result.records.length == 0){
+            res.render('login', {
+                pageTitle: 'Login',
+                path: '/login',
+                editing: false,
+                status: 401
+            });
+        }
         result.records.forEach(record => {
         ps = record.get('psd');
         console.log(ps);

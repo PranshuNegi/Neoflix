@@ -23,6 +23,25 @@ exports.post_test = (req,res,next) => {
     const uname = req.body.username;
     const pswd = req.body.password;
     const cpswd = req.body.cpassword;
+    if(uname.length > 256){
+        res.render('adduser', {
+            status: 0,
+            pageTitle: 'Sign Up',
+            path: '/adduser',
+            user: {
+                name: name,
+                age: age,
+                date_of_birth: dob,
+                gender: gender,
+                username: ""},
+            genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
+            actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+            fgenre: genre,
+            factor: favactor,
+            editing: true
+            });
+    }
+    let re = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
     var session = neo4j.session;
     session
         .run('MATCH (u:user {username: $username}) RETURN u.username as un;',{
@@ -41,13 +60,31 @@ exports.post_test = (req,res,next) => {
                             date_of_birth: dob,
                             gender: gender,
                             username: uname},
-                            genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-                            actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
-                            fgenre: genre,
-                            factor: favactor,
-                            editing: true
+                        genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
+                        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                        fgenre: genre,
+                        factor: favactor,
+                        editing: true
                         });
                 }
+            else if(!re.test(pswd)){
+                res.render('adduser', {
+                    status: 403,
+                    pageTitle: 'Sign Up',
+                    path: '/adduser',
+                    user: {
+                        name: name,
+                        age: age,
+                        date_of_birth: dob,
+                        gender: gender,
+                        username: uname},
+                    genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
+                    actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                    fgenre: genre,
+                    factor: favactor,
+                    editing: true
+                    });
+            }
             else{
                 var session2 = neo4j.session;
                 session2
@@ -76,11 +113,11 @@ exports.post_test = (req,res,next) => {
         	            date_of_birth: dob,
         	            gender: gender,
         	            username: ""},
-                        genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-                        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
-                        fgenre: genre,
-                        factor: favactor,
-                        editing: true
+                    genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
+                    actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                    fgenre: genre,
+                    factor: favactor,
+                    editing: true
                     });
             }
         })
