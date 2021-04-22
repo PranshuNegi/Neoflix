@@ -35,25 +35,20 @@ CREATE INDEX ON : movie ( title );
 CREATE INDEX ON : genre ( name );
 CREATE INDEX ON : person ( personId );
 CREATE INDEX ON : tag ( tagId );
-LOAD CSV WITH HEADERS FROM "file:///genome-scores.csv" AS row
-FIELDTERMINATOR ','
-MATCH ( m : movie { movieId : row.movieId })
-MATCH ( t:tag { tagId : row.tagId })
-MERGE ( m )-[: HAS_TAG { scores : row.scores }]->( t );
 LOAD CSV WITH HEADERS FROM "file:///actor.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( p : actor { personId : row.personId })
+MATCH ( p : person : actor { personId : row.personId })
 MATCH ( m : movie { movieId : row.movieId })
 MERGE ( p )-[: ACTED_IN ]->( m );
 LOAD CSV WITH HEADERS FROM "file:///director.csv" AS row
 FIELDTERMINATOR ','
-MATCH ( p : director { personId : row.personId })
+MATCH ( p : person : director { personId : row.personId })
 MATCH ( m : movie { movieId : row.movieId })
 MERGE ( p )-[: DIRECTED_IN ]->( m );
 LOAD CSV WITH HEADERS FROM "file:///fav-actor.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( u : user { username : row.username })
-MATCH ( a : actor { personId : row.actorId })
+MATCH ( a : person : actor { personId : row.actorId })
 MERGE ( u )-[: FAV_ACTOR ]->( a );
 LOAD CSV WITH HEADERS FROM "file:///fav-genre.csv" AS row
 FIELDTERMINATOR ','
