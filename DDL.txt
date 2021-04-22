@@ -2,7 +2,7 @@ CREATE CONSTRAINT movie_id_node ON ( m : Movie ) ASSERT ( m.movieId ) IS NODE KE
 CREATE CONSTRAINT user_name_node ON ( u : User ) ASSERT ( u.username ) IS NODE KEY;
 CREATE CONSTRAINT person_id_node ON ( p : Person ) ASSERT ( p.personId ) IS NODE KEY;
 CREATE CONSTRAINT genre_node ON ( g : Genre ) ASSERT ( g.name ) IS NODE KEY;
-CREATE CONSTRAINT tag_node ON ( t : Tag ) ASSERT ( t.tagId) IS NODE KEY;
+CREATE CONSTRAINT tag_node ON ( t : tag ) ASSERT ( t.tagId) IS NODE KEY;
 CREATE CONSTRAINT movie_title_existence ON ( m : Movie ) ASSERT exists ( m.title );
 CREATE CONSTRAINT ratingExists IF NOT EXISTS ON ()-[ r : WATCHED ]-() ASSERT
 exists ( r.rating );
