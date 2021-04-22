@@ -2,11 +2,14 @@ const Movie = require('../models/user');
 var neo4j = require('../models/neo4j');
 exports.get_test = (req,res,next) => {
 	res.render('adduser', {
+        status: 0,
         pageTitle: 'Sign Up',
         path: '/adduser',
         editing: false,
         genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"]
+        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+        fgenre: [],
+        factor: []
     });
 };
 
@@ -20,22 +23,65 @@ exports.post_test = (req,res,next) => {
     const uname = req.body.username;
     const pswd = req.body.password;
     const cpswd = req.body.cpassword;
-    if(pswd != cpswd){
-        res.redirect('/adduser');
-        console.log("Error");
-    }
     var session = neo4j.session;
     session
-        .run('CREATE (:user {username: $username,name: $name,dob: $dob,age: $age,gender: $gender, password: $password});', {
-        username: uname, name: name, dob: dob, age: age, gender: gender, password: pswd 
+        .run('MATCH (u:user {username: $username}) RETURN u.username as un;',{
+        username: uname
         })
         .then(result => {
-        result.records.forEach(record => {
-        console.log(record.get('name'))
+            if(result.records.length == 0){
+                if(pswd != cpswd){
+                    res.render('adduser', {
+                        status: 404,
+                        pageTitle: 'Sign Up',
+                        path: '/adduser',
+                        user: {
+                            name: name,
+                            age: age,
+                            date_of_birth: dob,
+                            gender: gender,
+                            username: uname},
+                            genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
+                            actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                            fgenre: genre,
+                            factor: favactor,
+                            editing: true
+                        });
+                }
+            else{
+                var session2 = neo4j.session;
+                session2
+                .run('CREATE (:user {username: $username,name: $name,dob: $dob,age: $age,gender: $gender, password: $password});', {
+                    username: uname, name: name, dob: dob, age: age, gender: gender, password: pswd 
+                    })
+                    .then(result => {
+                    result.records.forEach(record => {
+                    console.log(record.get('name'))
+                    })
+                    })
+                    .catch(error => {
+                    console.log(error)
+                    })
+                    res.redirect('/login')
+                }
+            }
+            else{
+                res.render('adduser', {
+                    status: 401,
+                    pageTitle: 'Sign Up',
+                    path: '/adduser',
+                    user: {
+        	            name: name,
+        	            age: age,
+        	            date_of_birth: dob,
+        	            gender: gender,
+        	            username: ""},
+                        genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
+                        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                        fgenre: genre,
+                        factor: favactor,
+                        editing: true
+                    });
+            }
         })
-        })
-        .catch(error => {
-        console.log(error)
-        })
-        res.redirect('/login')
 };
