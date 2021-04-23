@@ -49,13 +49,12 @@
                 <% } %>
             <% } %>
             <label for="favactor">Favourite Actor</label><br>
+            <select id="favactor" name="favactor" multiple>
             <% for(var i=0; i < actor.length; i++) { %>
             <% if(factor.includes(actor[i])) { %>
-                <input type="checkbox" name="genre" value="<%=actor[i]%>" checked>
-                <label for="actor"><%=actor[i]%></label><br>
+                <option value="<%=actor[i]%>" selected><%=actor[i]%></option>
             <% } else { %>
-                <input type="checkbox" name="actor" value="<%=actor[i]%>">
-                <label for="actor"><%=actor[i]%></label><br>
+                <option value="<%=actor[i]%>"><%=actor[i]%></option>
             <% } %>
             <% } %>
             </select>
