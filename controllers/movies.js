@@ -8,7 +8,7 @@ exports.get_test = (req,res,next) => {
     var session = neo4j.session;
     var it = [];
     session
-    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) return m.title as title, "Ritika" as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , 0 as wn LIMIT 25;',{
+    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) return m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , 0 as wn LIMIT 25;',{
         username: user
     })
     .then(result => {
