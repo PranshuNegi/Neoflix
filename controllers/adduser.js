@@ -1,16 +1,45 @@
 const Movie = require('../models/user');
 var neo4j = require('../models/neo4j');
-exports.get_test = (req,res,next) => {
-	res.render('adduser', {
-        status: 0,
-        pageTitle: 'Sign Up',
-        path: '/adduser',
-        editing: false,
-        genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
-        fgenre: [],
-        factor: []
-    });
+var genre_list = [];
+var actor_list = [];
+exports.get_test = (req,res,next) => {    
+    var session = neo4j.session;
+    session
+    .run('MATCH (g:genre) where g.name <> "(no genres listed)" return g.name AS name;',{
+    
+    })
+    .then(result => {
+        result.records.forEach(record => {
+                genre_list.push(record.get('name'));
+        
+        })
+        session
+        .run('MATCH (a:person :actor) RETURN a.name AS name LIMIT 10;',{
+        
+        })
+        .then(result2 => {
+            result2.records.forEach(record2 => {
+                actor_list.push(record2.get('name'));
+            })
+            res.render('adduser', {
+                status: 0,
+                pageTitle: 'Sign Up',
+                path: '/adduser',
+                editing: false,
+                genre: genre_list,
+                actor: actor_list,
+                fgenre: [],
+                factor: []
+            });
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    })
+    .catch(error => {
+        console.log(error)
+    })    
+	
 };
 
 exports.post_test = (req,res,next) => {
@@ -34,8 +63,8 @@ exports.post_test = (req,res,next) => {
                 date_of_birth: dob,
                 gender: gender,
                 username: ""},
-            genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-            actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+            genre: genre_list,
+            actor: actor_list,
             fgenre: genre,
             factor: favactor,
             editing: true
@@ -60,8 +89,8 @@ exports.post_test = (req,res,next) => {
                             date_of_birth: dob,
                             gender: gender,
                             username: uname},
-                        genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-                        actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                        genre: genre_list,
+                        actor: actor_list,
                         fgenre: genre,
                         factor: favactor,
                         editing: true
@@ -78,8 +107,8 @@ exports.post_test = (req,res,next) => {
                         date_of_birth: dob,
                         gender: gender,
                         username: uname},
-                    genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-                    actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                    genre: genre_list,
+                    actor: actor_list,
                     fgenre: genre,
                     factor: favactor,
                     editing: true
@@ -113,8 +142,8 @@ exports.post_test = (req,res,next) => {
         	            date_of_birth: dob,
         	            gender: gender,
         	            username: ""},
-                    genre: ["Romantic","Comedy","Animation","Drama","Action","Thriller","Horror","Biography","Mythological"],
-                    actor: ["Shah Rukh Khan","Kareena Kapoor","Saif Ali Khan","Anushka Sharma","Hina Khan","Siddharth Malhotra","Alia Bhatt","Rajkumar Rao","Katrina Kaif"],
+                    genre: genre_list,
+                    actor: actor_list,
                     fgenre: genre,
                     factor: favactor,
                     editing: true
