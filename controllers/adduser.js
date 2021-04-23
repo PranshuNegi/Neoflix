@@ -121,12 +121,28 @@ exports.post_test = (req,res,next) => {
                     username: uname, name: name, dob: dob, age: age, gender: gender, password: pswd 
                     })
                     .then(result => {
-                    result.records.forEach(record => {
-                    console.log(record.get('name'))
+                    var session3 = neo4j.session;
+                    session3
+                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name in $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
+                        username: uname, anamelist: favactor
+                    })
+                    .then(result => {
+                        var session4 = neo4j.session;
+                        session4
+                        .run('MATCH (u:user {username: $username}) MATCH (g:genre) WHERE g.name in $gnamelist MERGE (u)-[:FAV_GENRE]->(g)',{
+                            username: uname, gnamelist: genre
+                        })
+                        .then(result =>{})
+                        .catch(error => {
+                            console.log(error)
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error)
                     })
                     })
                     .catch(error => {
-                    console.log(error)
+                        console.log(error)
                     })
                     res.redirect('/login')
                 }
