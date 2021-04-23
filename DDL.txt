@@ -12,7 +12,7 @@ row.username });
 LOAD CSV WITH HEADERS FROM "file:///movies.csv" AS row FIELDTERMINATOR ','
 CREATE (: movie { movieId : row.movieId , title : row.title , released : row.released ,
 imdbRating : row.imdb_rating , duration : row.runtime , plot : row.plot ,language:
-row.languages });
+row.languages, poster : row.poster });
 LOAD CSV WITH HEADERS FROM "file:///genres.csv" AS row FIELDTERMINATOR ','
 CREATE (: genre { name : row.genres });
 LOAD CSV WITH HEADERS FROM "file:///person_actor.csv" AS row FIELDTERMINATOR ','
