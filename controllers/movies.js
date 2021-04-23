@@ -1,6 +1,10 @@
 const Movie = require('../models/movie');
 var neo4j = require('../models/neo4j');
 exports.get_test = (req,res,next) => {
+    if(user == null){
+        res.redirect('/login');
+        return
+    }
     var session = neo4j.session;
     var it = [];
     session
