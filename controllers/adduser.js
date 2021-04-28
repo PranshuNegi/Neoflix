@@ -123,7 +123,7 @@ exports.post_test = (req,res,next) => {
                     .then(result => {
                     var session3 = neo4j.session;
                     session3
-                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name in $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
+                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name = $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
                         username: uname, anamelist: favactor
                     })
                     .then(result => {

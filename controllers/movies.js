@@ -8,7 +8,7 @@ exports.get_test = (req,res,next) => {
     var session = neo4j.session;
     var it = [];
     session
-    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) return m.movieId as id,m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , 0 as wn LIMIT 25;',{
+    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) where g.name <> "(no genres listed)" return m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , 0 as wn LIMIT 25;',{
         username: user
     })
     .then(result => {
@@ -23,7 +23,6 @@ exports.get_test = (req,res,next) => {
                 duration: record.get('dur'),
                 genre: record.get('gen')})
         });
-        console.log(it);
         res.render('movies', {
             pageTitle: 'All Movies',
             path: '/movies',
