@@ -41,16 +41,17 @@
                     </h3>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/movies" method="post">
                     <button class="btn" type="submit">
                     More Details
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="movie" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="b_type" value="md">
                 </form>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
-                <% if(itlist[i].watched) { %>
+                <form action="/movies" method="post">
+                <% if(itlist[i].watched == 1) { %>
                 <button type="button" disabled>
                     Watched
                 </button>
@@ -58,7 +59,8 @@
                     <button class="btn" type="submit">
                     Watch
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="movie" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="b_type" value="w">
                 <% } %>
                 </form>
                 </div>

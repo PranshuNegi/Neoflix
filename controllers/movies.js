@@ -8,12 +8,13 @@ exports.get_test = (req,res,next) => {
     var session = neo4j.session;
     var it = [];
     session
-    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) return m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , 0 as wn LIMIT 25;',{
+    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) return m.movieId as id,m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , 0 as wn LIMIT 25;',{
         username: user
     })
     .then(result => {
         result.records.forEach(record => {
             it.push({
+                id: record.get('id'),
                 title: record.get('title'),
                 image: record.get('poster'),
                 date_of_release: record.get('drelease'),
@@ -32,4 +33,25 @@ exports.get_test = (req,res,next) => {
     .catch(error => {
         console.log(error)
     })
+};
+
+exports.post_test = (req,res,next) => {
+    const btype = req.body.b_type;
+    const mid = req.body.movie;
+    if( btype == "md"){
+        res.redirect('/details');
+    }
+    else{
+        var session = neo4j.session;
+        session
+        .run('MATCH (u:user {username: $username}) MATCH (m:movie {movieId: $movid}) MERGE (u)-[:WATCHED {rating: -1}]->(m);',{
+            username: user, movid: mid
+        })
+        .then(result => {
+            res.redirect('/movies');
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
 };
