@@ -52,6 +52,20 @@ exports.post_test = (req,res,next) => {
     const uname = req.body.username;
     const pswd = req.body.password;
     const cpswd = req.body.cpassword;
+    if(typeof(genre)=="string" || typeof(favactor)=="string"){
+        res.render('adduser', {
+            status: 0,
+            pageTitle: 'Sign Up',
+            path: '/adduser',
+            editing: false,
+            genre: genre_list,
+            actor: actor_list,
+            fgenre: [],
+            factor: []
+
+        });
+        return
+    }
     if(uname.length > 256){
         res.render('adduser', {
             status: 0,
@@ -69,6 +83,7 @@ exports.post_test = (req,res,next) => {
             factor: favactor,
             editing: true
             });
+            return
     }
     let re = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
     var session = neo4j.session;
