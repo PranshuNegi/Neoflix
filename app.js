@@ -18,6 +18,7 @@ const neo = require('./models/neo4j.js')
 
 const app = express();
 global.user = null;
+global.umovie = null;
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended:true}));

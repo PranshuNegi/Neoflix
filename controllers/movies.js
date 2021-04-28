@@ -39,6 +39,7 @@ exports.post_test = (req,res,next) => {
     const btype = req.body.b_type;
     const mid = req.body.movie;
     if( btype == "md"){
+        umovie = mid;
         res.redirect('/details');
     }
     else{
