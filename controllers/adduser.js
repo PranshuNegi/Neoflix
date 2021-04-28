@@ -3,6 +3,8 @@ var neo4j = require('../models/neo4j');
 var genre_list = [];
 var actor_list = [];
 exports.get_test = (req,res,next) => {    
+    genre_list = [];
+    actor_list = [];
     var session = neo4j.session;
     session
     .run('MATCH (g:genre) where g.name <> "(no genres listed)" return g.name AS name;',{
@@ -14,7 +16,7 @@ exports.get_test = (req,res,next) => {
         
         })
         session
-        .run('MATCH (a:person :actor) RETURN a.name AS name LIMIT 10;',{
+        .run('MATCH (a:person :actor) RETURN a.name AS name;',{
         
         })
         .then(result2 => {
@@ -138,7 +140,7 @@ exports.post_test = (req,res,next) => {
                     .then(result => {
                     var session3 = neo4j.session;
                     session3
-                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name = $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
+                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name in $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
                         username: uname, anamelist: favactor
                     })
                     .then(result => {
