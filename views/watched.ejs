@@ -36,11 +36,12 @@
                     </h3>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/watched" method="post">
                     <button class="btn" type="submit">
                     More Details
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="b_type" value="md">
+                    <input type="hidden" name="movie" value="<%= itlist[i].id %>">
                 </form>
                 </div>
                 <div class="card__actions">
