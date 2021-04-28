@@ -46,70 +46,60 @@
                 </div>
                 <div class="card__actions">
                     <h3 class="product__description">
-                        Your Rating:
+                        Your Rating: <%=itlist[i].user_rating%>
                     </h3>
-                <div class="stars">
-                    <form action="">
-                        <% if (itlist[i].user_rating == 5) { %>
-                        <input class="star star-5" id="star-5" type="radio" name="star"/ checked>
-                        <% } else { %>
-                        <input class="star star-5" id="star-5" type="radio" name="star"/>
-                        <% } %>
-                        <label class="star star-5" for="star-5"></label>
-                        <% if (itlist[i].user_rating == 4) { %>
-                        <input class="star star-4" id="star-4" type="radio" name="star"/ checked>
-                        <% } else { %>
-                        <input class="star star-4" id="star-4" type="radio" name="star"/>
-                        <% } %>
-                        <label class="star star-4" for="star-4"></label>
-                        <% if (itlist[i].user_rating == 3) { %>
-                        <input class="star star-3" id="star-3" type="radio" name="star"/ checked>
-                        <% } else { %>
-                        <input class="star star-3" id="star-3" type="radio" name="star"/>
-                        <% } %>
-                        <label class="star star-3" for="star-3"></label>
-                        <% if (itlist[i].user_rating == 2) { %>
-                        <input class="star star-2" id="star-2" type="radio" name="star"/ checked>
-                        <% } else { %>
-                        <input class="star star-2" id="star-2" type="radio" name="star"/>
-                        <% } %>
-                        <label class="star star-2" for="star-2"></label>
-                        <% if (itlist[i].user_rating == 1) { %>
-                        <input class="star star-1" id="star-1" type="radio" name="star"/ checked>
-                        <% } else { %>
-                        <input class="star star-1" id="star-1" type="radio" name="star"/>
-                        <% } %>
-                        <label class="star star-1" for="star-1"></label>
+                <div>
+                <div class="card__actions">
+                    <h3 class="product__description">
+                        Edit Rating: 
+                    </h3>
+                <div class="card__actions">
+                    <form action="/watched" method="post">
+                        <button class="btn" type="submit">5</button>
+                        <input type="hidden" name="b_type" value="star5">
+                        <input type="hidden" name="movie" value="<%= itlist[i].id %>">
+                    </form>
+                </div>
+                <div class="card__actions">
+                    <form action="/watched" method="post">
+                        <button class="btn" type="submit">4</button>
+                        <input type="hidden" name="b_type" value="star4">
+                        <input type="hidden" name="movie" value="<%= itlist[i].id %>">
+                    </form>
+                </div>
+                <div class="card__actions">
+                    <form action="/watched" method="post">
+                        <button class="btn" type="submit">3</button>
+                        <input type="hidden" name="b_type" value="star3">
+                        <input type="hidden" name="movie" value="<%= itlist[i].id %>">
+                    </form>
+                </div>
+                <div class="card__actions">
+                    <form action="/watched" method="post">
+                        <button class="btn" type="submit">2</button>
+                        <input type="hidden" name="b_type" value="star2">
+                        <input type="hidden" name="movie" value="<%= itlist[i].id %>">
+                    </form>
+                </div>
+                <div class="card__actions">
+                    <form action="/watched" method="post">
+                        <button class="btn" type="submit">1</button>
+                        <input type="hidden" name="b_type" value="star1">
+                        <input type="hidden" name="movie" value="<%= itlist[i].id %>">
                     </form>
                 </div>
                 </div>
-                <% if (itlist[i].rated) { %>
+                
                 <div class="card__actions">
-                <form action="/cart" method="post">
-                    <button class="btn" type="submit">
-                    Update Rating
-                    </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
-                </form>
-                </div>
-                <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/watched" method="post">
                     <button class="btn" type="submit">
                     Delete Rating
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="b_type" value="unstar">
+                    <input type="hidden" name="movie" value="<%= itlist[i].id %>">
                 </form>
                 </div>
-                <% } else { %>
-                <div class="card__actions">
-                <form action="/cart" method="post">
-                    <button class="btn" type="submit">
-                    Give Rating
-                    </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
-                </form>
-                </div>
-                <% } %>
+
             </article>
          <% } %>
     </div>
