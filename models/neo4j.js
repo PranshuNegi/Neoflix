@@ -4,7 +4,7 @@ var driver = neo4j.driver(
     neo4j.auth.basic('neo4j', 'neoflix')
   )
   var session = driver.session({
-    database: 'neo4j',
+    database: 'neoflix',
     defaultAccessMode: neo4j.session.WRITE
   })
   exports.session = session

@@ -52,6 +52,20 @@ exports.post_test = (req,res,next) => {
     const uname = req.body.username;
     const pswd = req.body.password;
     const cpswd = req.body.cpassword;
+    if(typeof(genre)=="string" || typeof(favactor)=="string"){
+        res.render('adduser', {
+            status: 0,
+            pageTitle: 'Sign Up',
+            path: '/adduser',
+            editing: false,
+            genre: genre_list,
+            actor: actor_list,
+            fgenre: [],
+            factor: []
+
+        });
+        return
+    }
     if(uname.length > 256){
         res.render('adduser', {
             status: 0,
@@ -69,6 +83,7 @@ exports.post_test = (req,res,next) => {
             factor: favactor,
             editing: true
             });
+            return
     }
     let re = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})");
     var session = neo4j.session;
@@ -123,7 +138,7 @@ exports.post_test = (req,res,next) => {
                     .then(result => {
                     var session3 = neo4j.session;
                     session3
-                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name in $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
+                    .run('MATCH (u:user {username: $username}) MATCH (a:actor) WHERE a.name = $anamelist MERGE (u)-[:FAV_ACTOR]->(a)',{
                         username: uname, anamelist: favactor
                     })
                     .then(result => {
