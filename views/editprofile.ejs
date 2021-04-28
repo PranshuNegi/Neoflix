@@ -7,7 +7,7 @@
 <%- include('includes/nav.ejs') %>
 
 <main>
-    <form class="product-form" action="http://localhost:3000/admin/add-product" method="POST">
+    <form class="product-form" action="http://localhost:3000/editprofile" method="POST">
         <div class="form-control">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" value="<% if (editing) { %><%= user.name %><% } %>">
@@ -20,46 +20,47 @@
             <label for="age">Age</label>
             <input type="number" name="age" id="age" value="<% if (editing) { %><%= user.age %><% } %>">
         </div>
-            <% if (editing && user.gender == 0){ %>
+            <% if (editing && user.gender == "male"){ %>
             <input type="radio" id="male" name="gender" value="male" checked>
             <% } else { %>
             <input type="radio" id="male" name="gender" value="male">
             <% } %>
             <label for="male">Male</label>
-            <% if (editing && user.gender == 1){ %>
+            <% if (editing && user.gender == "female"){ %>
             <input type="radio" id="female" name="gender" value="female" checked>
             <% } else { %>
             <input type="radio" id="female" name="gender" value="female">
             <% } %>
             <label for="female">Female</label>
-            <% if (editing && user.gender == 2){ %>
+            <% if (editing && user.gender == "other"){ %>
             <input type="radio" id="other" name="gender" value="other" checked>
             <% } else { %>
             <input type="radio" id="other" name="gender" value="other">
             <% } %>
             <label for="other">Other</label><br>
             <label for="favgenre">Favourite Genre</label><br>
+                <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
             <% for(var i=0; i < genre.length; i++) { %>
-            <input type="checkbox" name="genre" value="<%=genre[i]%>">
-            <label for="genre"><%=genre[i]%></label><br>
+                <% if(fgenre.includes(genre[i])) { %>
+                    <input type="checkbox" name="genre" value="<%=genre[i]%>" checked>
+                    <label for="genre"><%=genre[i]%></label><br>
+                <% } else { %>
+                    <input type="checkbox" name="genre" value="<%=genre[i]%>">
+                    <label for="genre"><%=genre[i]%></label><br>
+                <% } %>
             <% } %>
             <label for="favactor">Favourite Actor</label><br>
-            <select id="favactor" name="favactor" multiple>
+            <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
+            <select id="favactor" name="favactor" size="30" multiple>
             <% for(var i=0; i < actor.length; i++) { %>
-            <option value="<%=actor[i]%>"><%=actor[i]%></option>
+            <% if(factor.includes(actor[i])) { %>
+                <option value="<%=actor[i]%>" selected><%=actor[i]%></option>
+            <% } else { %>
+                <option value="<%=actor[i]%>"><%=actor[i]%></option>
+            <% } %>
             <% } %>
             </select>
-        <div class="form-control">
-        <% if (!editing) { %>
-            <label for="username">UserName</label>
-            <input type="text" name="username" id="username" value="">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" value="">
-            <label for="cpassword">Confirm Password</label>
-            <input type="password" name="cpassword" id="cpassword" value="">
-        <% } %>
-        </div>
-        <button class="btn" type="submit"><% if (editing) { %>Update Profile<% } else { %>SignUp<% } %></button>
+        <button class="btn" type="submit">Update Profile</button>
     </form>
 </main>
 <%- include('includes/end.ejs') %>
