@@ -36,3 +36,9 @@ exports.get_test = (req,res,next) => {
         console.log(error)
     })
 };
+exports.post_test = (req,res,next) => {
+    const btype = req.body.b_type;
+    if( btype == "gb"){
+        res.redirect('/movies');
+    }  
+};
