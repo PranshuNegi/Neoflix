@@ -51,7 +51,7 @@
             <% } %>
             <label for="favactor">Favourite Actor</label><br>
             <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
-            <select id="favactor" name="favactor" multiple>
+            <select id="favactor" name="favactor" size="30" multiple>
             <% for(var i=0; i < actor.length; i++) { %>
             <% if(factor.includes(actor[i])) { %>
                 <option value="<%=actor[i]%>" selected><%=actor[i]%></option>
