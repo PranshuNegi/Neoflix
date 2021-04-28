@@ -41,6 +41,20 @@ exports.post_test = (req,res,next) => {
         umovie = mid;
         res.redirect('/details');
     }
+    else if(btype == "wa"){
+        var session = neo4j.session;
+        session
+        .run('MATCH (a:user {username: $username}), (b:movie {movieId: $movid}) CREATE (a)-[r:WATCHED {rating: "-1"}]->(b)',{
+            username: user, movid: mid
+        })
+        .then(result => {
+            res.redirect('/watched');
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        
+    }
     else{
         var session = neo4j.session;
         session
