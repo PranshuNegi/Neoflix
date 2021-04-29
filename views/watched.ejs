@@ -44,15 +44,29 @@
                     <input type="hidden" name="movie" value="<%= itlist[i].id %>">
                 </form>
                 </div>
+                <% if(itlist[i].user_rating != -1) { %>
                 <div class="card__actions">
                     <h3 class="product__description">
                         Your Rating: <%=itlist[i].user_rating%>
                     </h3>
                 <div>
+                <% } else { %>
                 <div class="card__actions">
+                    <h3 class="product__description">
+                        Not Rated yet
+                    </h3>
+                <div>  
+                <% } %>
+                <div class="card__actions">
+                    <% if(itlist[i].user_rating != -1) { %>
                     <h3 class="product__description">
                         Edit Rating: 
                     </h3>
+                    <% } else { %> 
+                    <h3 class="product__description">
+                        Give Rating: 
+                    </h3>
+                    <% } %>
                 <div class="card__actions">
                     <form action="/watched" method="post">
                         <button class="btn" type="submit">5</button>
@@ -89,7 +103,7 @@
                     </form>
                 </div>
                 </div>
-                
+                <% if(itlist[i].user_rating != -1) { %>
                 <div class="card__actions">
                 <form action="/watched" method="post">
                     <button class="btn" type="submit">
@@ -99,7 +113,7 @@
                     <input type="hidden" name="movie" value="<%= itlist[i].id %>">
                 </form>
                 </div>
-
+                <% } %>
             </article>
          <% } %>
     </div>

@@ -39,12 +39,13 @@ exports.post_test = (req,res,next) => {
     const mid = req.body.movie;
     if( btype == "md"){
         umovie = mid;
+        repage = "movies";
         res.redirect('/details');
     }
     else if(btype == "wa"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username}), (b:movie {movieId: $movid}) CREATE (a)-[r:WATCHED {rating: "-1"}]->(b)',{
+        .run('MATCH (a:user {username: $username}), (b:movie {movieId: $movid}) CREATE (a)-[r:WATCHED {rating: -1}]->(b)',{
             username: user, movid: mid
         })
         .then(result => {

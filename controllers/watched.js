@@ -38,12 +38,13 @@ exports.post_test = (req,res,next)=>{
     const mid = req.body.movie;
     if( btype == "md"){
         umovie = mid;
+        repage = "watched";
         res.redirect('/details');
     }
     else if(btype == "unstar"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating="-1";',{
+        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating=-1;',{
             username: user, movid: mid
         })
         .then(result => {
@@ -56,7 +57,7 @@ exports.post_test = (req,res,next)=>{
     else if(btype == "star5"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating="5";',{
+        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating=5;',{
             username: user, movid: mid
         })
         .then(result => {
@@ -69,7 +70,7 @@ exports.post_test = (req,res,next)=>{
     else if(btype == "star4"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating="4";',{
+        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating=4;',{
             username: user, movid: mid
         })
         .then(result => {
@@ -82,7 +83,7 @@ exports.post_test = (req,res,next)=>{
     else if(btype == "star3"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating="3";',{
+        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating=3;',{
             username: user, movid: mid
         })
         .then(result => {
@@ -95,7 +96,7 @@ exports.post_test = (req,res,next)=>{
     else if(btype == "star2"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating="2";',{
+        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating=2;',{
             username: user, movid: mid
         })
         .then(result => {
@@ -108,7 +109,7 @@ exports.post_test = (req,res,next)=>{
     else if(btype == "star1"){
         var session = neo4j.session;
         session
-        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating="1";',{
+        .run('MATCH (a:user {username: $username})-[r:WATCHED]->(b:movie {movieId: $movid}) SET r.rating=1;',{
             username: user, movid: mid
         })
         .then(result => {
