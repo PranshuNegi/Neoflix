@@ -55,6 +55,25 @@ exports.post_test = (req,res,next) => {
     const uname = req.body.username;
     const pswd = req.body.password;
     const cpswd = req.body.cpassword;
+    if(genre == undefined || favactor == undefined){
+        res.render('adduser', {
+            status: 0,
+            pageTitle: 'Sign Up',
+            path: '/adduser',
+            editing: true,
+            user: {
+                name: name,
+                age: age,
+                date_of_birth: dob,
+                gender: gender,
+                username: ""},
+            genre: genre_list,
+            actor: actor_list,
+            fgenre: [],
+            factor: []
+        });
+        return
+    }
     if(typeof(genre)=="string" && typeof(favactor)=="string"){
         res.render('adduser', {
             status: 0,
