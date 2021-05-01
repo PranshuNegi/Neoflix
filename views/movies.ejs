@@ -7,7 +7,13 @@
 <body>
 <%- include('includes/nav.ejs') %>
 <main>
-    <input type="text" id="search" placeholder="Search for movies.." title="Type in a name">
+    <form action="/movies" method="post">
+    <input type="text" id="search" placeholder="Search for movies.." name="search" title="Type in a name">
+        <button class="btn" type="submit">
+            Search  
+        </button>
+        <input type="hidden" name="b_type" value="sch">
+    </form>
     <form action="/movies" method="post">
         <button class="btn" type="submit">
             Filter Movies based on other attributes   

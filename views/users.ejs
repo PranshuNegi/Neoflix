@@ -7,7 +7,13 @@
 <body>
 <%- include('includes/nav.ejs') %>
 <main>
-    <input type="text" id="search" placeholder="Search for any user.." title="Type in a name">
+    <form action="/users" method="post">
+        <input type="text" id="search" placeholder="Search for users.." name="search" title="Type in a name">
+            <button class="btn" type="submit">
+                Search  
+            </button>
+            <input type="hidden" name="b_type" value="sch">
+        </form>
     <div style="color:black">
         <table border=1 width="75%"">
             <tr>
