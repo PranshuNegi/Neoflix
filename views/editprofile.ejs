@@ -16,24 +16,18 @@
             <label for="date_of_birth">Date of Birth</label>
             <input type="date" name="date_of_birth" id="date_of_birth" value="<% if (editing) { %><%= user.date_of_birth %><% } %>">
         </div>
-            <% if (editing && user.gender == "male"){ %>
-            <input type="radio" id="male" name="gender" value="male" checked>
+            <% if (editing && user.gender == "M"){ %>
+            <input type="radio" id="male" name="gender" value="M" checked>
             <% } else { %>
-            <input type="radio" id="male" name="gender" value="male">
+            <input type="radio" id="male" name="gender" value="M">
             <% } %>
             <label for="male">Male</label>
-            <% if (editing && user.gender == "female"){ %>
-            <input type="radio" id="female" name="gender" value="female" checked>
+            <% if (editing && user.gender == "F"){ %>
+            <input type="radio" id="female" name="gender" value="F" checked>
             <% } else { %>
-            <input type="radio" id="female" name="gender" value="female">
+            <input type="radio" id="female" name="gender" value="F">
             <% } %>
-            <label for="female">Female</label>
-            <% if (editing && user.gender == "other"){ %>
-            <input type="radio" id="other" name="gender" value="other" checked>
-            <% } else { %>
-            <input type="radio" id="other" name="gender" value="other">
-            <% } %>
-            <label for="other">Other</label><br>
+            <label for="female">Female</label><br>
             <label for="favgenre">Favourite Genre</label><br>
                 <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
             <% for(var i=0; i < genre.length; i++) { %>

@@ -13,6 +13,7 @@ const login = require('./routes/login');
 const details = require('./routes/details');
 const filters = require('./routes/filters');
 const results = require('./routes/results');
+const users = require('./routes/users');
 // const pool =  require('./utils/database');
 const neo = require('./models/neo4j.js')
 
@@ -34,6 +35,7 @@ app.use('/login',login);
 app.use('/details',details);
 app.use('/filters',filters);
 app.use('/results',results);
+app.use('/users',users);
 app.listen(3000);
 
 module.exports = app

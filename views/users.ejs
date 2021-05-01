@@ -1,0 +1,62 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/main.css">
+</head>
+
+<body>
+<%- include('includes/nav.ejs') %>
+<main>
+    <input type="text" id="search" placeholder="Search for any user.." title="Type in a name">
+    <div style="color:black">
+        <table border=1 width="75%"">
+            <tr>
+                <h3>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Favorite Genres</th>
+                <th>Favorite Actors</th></h3>
+            </tr>
+            <% for(var i=0; i < itlist.length; i++) { %>
+                <tr>
+                    <td>
+                        <%=itlist[i].name%>
+                    </td>
+                    <td>
+                        <%=itlist[i].age%>
+                    </td>
+                    <td>
+                        <%=itlist[i].gender%>
+                    </td>
+                    <td>
+                        <%=itlist[i].genre%>
+                    </td>
+                    <td>
+                        <%=itlist[i].actor%>
+                    </td>
+                    <td>
+                    <% if(itlist[i].fornot == 0) { %> 
+                    <form action="/users" method="post">
+                        <button class="btn" type="submit">
+                        Follow
+                        </button>
+                        <input type="hidden" name="us" value="<%= itlist[i].uname %>">
+                        <input type="hidden" name="b_type" value="fl">
+                    </form>
+                    <% } else { %>
+                        <form action="/users" method="post">
+                            <button class="btn" type="submit">
+                            Unfollow
+                            </button>
+                            <input type="hidden" name="us" value="<%= itlist[i].uname %>">
+                            <input type="hidden" name="b_type" value="ufl">
+                        </form>
+                    <% } %>
+                    </td>
+                </tr>
+            <% } %>
+    </table>
+    </div>
+</main>
+<%- include('includes/end.ejs') %>
