@@ -42,6 +42,9 @@ exports.post_test = (req,res,next) => {
         repage = "movies";
         res.redirect('/details');
     }
+    else if( btype == "fil"){
+        res.redirect('/filters');
+    }
     else if(btype == "wa"){
         var session = neo4j.session;
         session

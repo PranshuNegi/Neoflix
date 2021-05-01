@@ -8,11 +8,11 @@
 <%- include('includes/nav.ejs') %>
 <main>
     <input type="text" id="search" placeholder="Search for movies.." title="Type in a name">
-    <form action="/cart" method="post">
+    <form action="/movies" method="post">
         <button class="btn" type="submit">
             Filter Movies based on other attributes   
         </button>
-        <input type="hidden" name="product_id" value="">
+        <input type="hidden" name="b_type" value="fil">
     </form>
     </div>
     <div class="grid">
