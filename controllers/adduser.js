@@ -47,7 +47,8 @@ exports.get_test = (req,res,next) => {
 exports.post_test = (req,res,next) => {
     const name = req.body.name;
     const dob = req.body.date_of_birth;
-    const age = req.body.age;
+    const diff = 2021 - Number(dob.slice(0, 4));
+    const age = diff.toString();
     const gender = req.body.gender;
     const genre = req.body.genre;
     const favactor = req.body.favactor;

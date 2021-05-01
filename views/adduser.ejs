@@ -16,10 +16,6 @@
             <label for="date_of_birth">Date of Birth</label>
             <input type="date" name="date_of_birth" id="date_of_birth" value="<% if (editing) { %><%= user.date_of_birth %><% } %>">
         </div>
-        <div class="form-control">
-            <label for="age">Age</label>
-            <input type="number" name="age" id="age" value="<% if (editing) { %><%= user.age %><% } %>">
-        </div>
             <% if (editing && user.gender == "male"){ %>
             <input type="radio" id="male" name="gender" value="male" checked>
             <% } else { %>
