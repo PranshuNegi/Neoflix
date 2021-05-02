@@ -20,6 +20,14 @@
         </button>
         <input type="hidden" name="b_type" value="fil">
     </form>
+    <% if(remove) { %>
+    <form action="/movies" method="post">
+        <button class="btn" type="submit">
+            Remove Filter
+        </button>
+        <input type="hidden" name="b_type" value="rem">
+    </form>
+    <% } %> 
     </div>
     <div class="grid">
         <% for(var i=0; i < itlist.length; i++) { %>

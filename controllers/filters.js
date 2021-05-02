@@ -68,7 +68,8 @@ exports.post_test = (req,res,next) => {
         res.render('movies', {
             pageTitle: 'All Movies',
             path: '/movies',
-            itlist: it
+            itlist: it,
+            remove: true
         });
     })
     .catch(error => {

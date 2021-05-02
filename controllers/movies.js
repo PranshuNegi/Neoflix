@@ -26,7 +26,8 @@ exports.get_test = (req,res,next) => {
         res.render('movies', {
             pageTitle: 'All Movies',
             path: '/movies',
-            itlist: it
+            itlist: it,
+            remove: false
         });
     })
     .catch(error => {
@@ -68,12 +69,16 @@ exports.post_test = (req,res,next) => {
             res.render('movies', {
                 pageTitle: 'All Movies',
                 path: '/movies',
-                itlist: it
+                itlist: it,
+                remove: true
             });
         })
         .catch(error => {
             console.log(error)
         })
+    }
+    else if(btype == "rem"){
+        res.redirect('/movies');
     }
     else if(btype == "wa"){
         var session = neo4j.session;
