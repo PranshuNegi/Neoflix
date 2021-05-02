@@ -1,6 +1,7 @@
 const Movie = require('../models/user');
 var neo4j = require('../models/neo4j');
 exports.get_test = (req,res,next) => {
+    user = null;
 	res.render('login', {
         pageTitle: 'Login',
         path: '/login',
