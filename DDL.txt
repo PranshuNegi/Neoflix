@@ -8,7 +8,7 @@ CREATE CONSTRAINT ratingExists IF NOT EXISTS ON ()-[ r : WATCHED ]-() ASSERT
 exists ( r.rating );
 LOAD CSV WITH HEADERS FROM "file:///users.csv" AS row FIELDTERMINATOR ','
 CREATE (: user { name : row.name , dob : row.dob , age : row.age , gender : row.gender , username :
-row.username });
+row.username , password : row.password });
 LOAD CSV WITH HEADERS FROM "file:///movies.csv" AS row FIELDTERMINATOR ','
 CREATE (: movie { movieId : row.movieId , title : row.title , released : row.released ,
 imdbRating : row.imdb_rating , duration : row.runtime , plot : row.plot ,language:
@@ -65,3 +65,8 @@ FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
 MATCH ( t:tag { tagId : row.tagId })
 MERGE ( m )-[: HAS_TAG { scores : row.relevance }]->( t );
+LOAD CSV WITH HEADERS FROM "file:///follow.csv" AS row
+FIELDTERMINATOR ','
+MATCH ( u : user { username : row.username1 })
+MATCH ( v : user { username : row.username2 })
+MERGE ( u )-[: FOLLOW]->( v );
