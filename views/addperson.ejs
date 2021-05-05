@@ -1,0 +1,38 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+<%- include('includes/navg.ejs') %>
+
+<main>
+    <center><h2>Add a new Person</h2></center>
+    <form class="product-form" action="http://localhost:3000/addperson" method="POST">
+        <div class="form-control">
+            <% if(status == 404) {%>
+                <p style="color:red;font-size:15px" >*Couldn't add person "<%=pn%>". Try Again.</p>
+            <% } else if(status == 1) { %>
+                <p style="color:green;font-size:15px" >Successfully added person "<%=pn%>".</p>
+            <% } %>
+            <p style="color:red;font-size:15px" >**Person Id should be unique.</p>
+            <% if (status != 403) { %>
+            <label for="id">Person ID</label>
+            <input type="text" name="id" id="id" value="<% if (editing) { %><%= pid %><% } %>">
+            <% } else { %>
+            <label for="id">Person ID</label>
+            <input type="text" name="id" id="id" value="">
+            <% } %>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="<% if (editing) { %><%= pn %><% } %>">
+        </div>
+            <label for="role">Select Role</label><br>
+            <font style="color:red;font-size:15px" >*Select at least one.</font><br>
+                <input type="checkbox" name="role" value="Actor">
+                <label for="role">Actor</label><br>
+                <input type="checkbox" name="role" value="Director">
+                <label for="role">Director</label><br>
+        <button class="btn" type="submit">Add Person</button>
+    </form>
+</main>
+<%- include('includes/end.ejs') %>

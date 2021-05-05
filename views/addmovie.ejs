@@ -1,0 +1,48 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+
+<body>
+<%- include('includes/navg.ejs') %>
+
+<main>
+    <form class="product-form" action="http://localhost:3000/adduser" method="POST">
+        <div class="form-control">
+            <label for="name">Movie ID</label>
+            <input type="text" name="movid" id="movid" value="<% if (editing) { %><%= movie.id %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">Title</label>
+            <input type="text" name="title" id="title" value="<% if (editing) { %><%= movie.name %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="date_of_release">Date of Release</label>
+            <input type="date" name="date_of_release" id="date_of_release" value="<% if (editing) { %><%= movie.date_of_release %><% } %>">
+        </div>
+            <label for="favgenre">Genre of the Movie</label><br>
+                <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
+            <% for(var i=0; i < genre.length; i++) { %>
+                <% if(fgenre.includes(genre[i])) { %>
+                    <input type="checkbox" name="genre" value="<%=genre[i]%>" checked>
+                    <label for="genre"><%=genre[i]%></label><br>
+                <% } else { %>
+                    <input type="checkbox" name="genre" value="<%=genre[i]%>">
+                    <label for="genre"><%=genre[i]%></label><br>
+                <% } %>
+            <% } %>
+            <label for="favactor">Favourite Actor</label><br>
+            <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
+            <select id="favactor" name="favactor" size="30" multiple>
+            <% for(var i=0; i < actor.length; i++) { %>
+            <% if(factor.includes(actor[i])) { %>
+                <option value="<%=actor[i]%>" selected><%=actor[i]%></option>
+            <% } else { %>
+                <option value="<%=actor[i]%>"><%=actor[i]%></option>
+            <% } %>
+            <% } %>
+            </select>
+        <button class="btn" type="submit">SignUp</button>
+    </form>
+</main>
+<%- include('includes/end.ejs') %>
