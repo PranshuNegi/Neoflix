@@ -28,7 +28,7 @@ LOAD CSV WITH HEADERS FROM "file:///ratings.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( u : user { username : row.username })
 MATCH ( m : movie { movieId : row.movieId })
-MERGE ( u )-[: WATCHED { rating : row.rating }]->( m );
+MERGE ( u )-[: WATCHED { rating : toInteger(row.rating) }]->( m );
 CREATE INDEX ON : movie ( title );
 LOAD CSV WITH HEADERS FROM "file:///actor.csv" AS row
 FIELDTERMINATOR ','
@@ -59,7 +59,7 @@ LOAD CSV WITH HEADERS FROM "file:///movie_sim_movie.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
 MATCH ( n : movie { movieId : row.sim_movieId })
-MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : row.relevance }]-( a );
+MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : row.relevance }]-( n );
 LOAD CSV WITH HEADERS FROM "file:///genome-scores.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
