@@ -16,6 +16,12 @@
 
 <main>
     <form class="product-form" action="http://localhost:3000/addmovie" method="POST">
+        <% if((status == 404 || status == 403 ) && bt == "add") {%>
+            <p style="color:red;font-size:15px" >*Couldn't add movie "<%=pn%>". Try Again.</p>
+        <% } else if(status == 1 && bt== "add") { %>
+            <p style="color:green;font-size:15px" >Successfully added movie "<%=pn%>".</p>
+        <% } %>
+        <p style="color:red;font-size:15px" >**Movie Id should be unique.</p>
         <div class="form-control">
             <label for="name">Movie ID</label>
             <input type="text" name="movid" id="movid" value="<% if (editing) { %><%= movie.id %><% } %>">
@@ -23,6 +29,26 @@
         <div class="form-control">
             <label for="name">Title</label>
             <input type="text" name="title" id="title" value="<% if (editing) { %><%= movie.name %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">Plot</label>
+            <input type="text" name="plot" id="plot" value="<% if (editing) { %><%= movie.plot %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">Duration</label>
+            <input type="text" name="duration" id="duration" value="<% if (editing) { %><%= movie.duration %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">Poster URL</label>
+            <input type="text" name="poster" id="poster" value="<% if (editing) { %><%= movie.poster %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">Language</label>
+            <input type="text" name="language" id="language" value="<% if (editing) { %><%= movie.language %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">IMDb Rating</label>
+            <input type="text" name="imdb" id="imdb" value="<% if (editing) { %><%= movie.imdb %><% } %>">
         </div>
         <div class="form-control">
             <label for="date_of_release">Date of Release</label>
@@ -34,31 +60,43 @@
             <option value="<%=genre[i]%>"><%=genre[i]%></option>
         <% } %>
         </select><br>
-            <label for="actor">Actors</label><br>
-            <select class="js-example-basic-multiple" multiple="multiple" id="actor" name="actor">
-            <% for(var i=0; i < actor.length; i++) { %>
-                <option value="<%=actor[i]%>"><%=actor[i]%></option>
-            <% } %>
-            </select><br>
-            <label for="director">Director</label><br>
-            <select class="js-example-basic-multiple" multiple="multiple" id="director" name="director">
-            <% for(var i=0; i < director.length; i++) { %>
-                <option value="<%=director[i]%>"><%=director[i]%></option>
-            <% } %>
-            </select><br>
+        <label for="actor">Actors</label><br>
+        <select class="js-example-basic-multiple" multiple="multiple" id="actor" name="actor">
+        <% for(var i=0; i < actor.length; i++) { %>
+            <option value="<%=actor[i]%>"><%=actor[i]%></option>
+        <% } %>
+        </select><br>
+        <label for="director">Director</label><br>
+        <select class="js-example-basic-multiple" multiple="multiple" id="director" name="director">
+        <% for(var i=0; i < director.length; i++) { %>
+            <option value="<%=director[i]%>"><%=director[i]%></option>
+        <% } %>
+        </select><br>
+        <label for="tags">Tags</label><br>
+        <p style="color:red;font-size:15px" >**Add exactly two tags.</p>
+        <select class="js-example-basic-multiple" multiple="multiple" id="tags" name="tags">
+        <% for(var i=0; i < tags.length; i++) { %>
+            <option value="<%=tags[i]%>"><%=tags[i]%></option>
+        <% } %>
+        </select><br>
+        <div class="form-control">
+            <label for="name">Relevance scores</label>
+            <p style="color:red;font-size:15px" >**Enter comma separated list of relevance scores for tags selected above in range 0-1.</p>
+            <input type="text" name="relevance" id="relevance" value="<% if (editing) { %><%= movie.relevance %><% } %>">
+        </div>
         <input type="hidden" name="b_type" value="add">
         <button class="btn" type="submit">Add Movie</button>
     </form>
     <center><h2>Delete an existing Movie</h2></center>
-    <form class="product-form" action="http://localhost:3000/addperson" method="POST">
+    <form class="product-form" action="http://localhost:3000/addmovie" method="POST">
         <div class="form-control">
             <% if(status == 404 && bt=="del") {%>
-                <p style="color:red;font-size:15px" >*The movie with movieId "<%=pid%>" does not exist. Try deleting a different movie.</p>
+                <p style="color:red;font-size:15px" >*The movie with title "<%=pn%>" does not exist. Try deleting a different movie.</p>
             <% } else if(status == 1 && bt=="del") { %>
-                <p style="color:green;font-size:15px" >Successfully deleted movie with movieId "<%=pid%>".</p>
+                <p style="color:green;font-size:15px" >Successfully deleted movie with title "<%=pn%>".</p>
             <% } %>
-            <label for="id">Movie ID</label>
-            <input type="text" name="id" id="id" value="<% if (editing && bt=='del') { %><%= pid %><% } %>">
+            <label for="id">Title</label>
+            <input type="text" name="movid" id="movid" value="<% if (editing && bt=='del') { %><%= pn %><% } %>">
             <input type="hidden" name="b_type" value="del">
         <button class="btn" type="submit">Delete Movie</button>
     </form>

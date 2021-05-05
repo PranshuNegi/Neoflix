@@ -59,12 +59,12 @@ LOAD CSV WITH HEADERS FROM "file:///movie_sim_movie.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
 MATCH ( n : movie { movieId : row.sim_movieId })
-MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : row.relevance }]-( n );
+MERGE ( m )-[: MOVIE_SIM_MOVIE { relevance : toFloat(row.relevance) }]-( n );
 LOAD CSV WITH HEADERS FROM "file:///genome-scores.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( m : movie { movieId : row.movieId })
 MATCH ( t:tag { tagId : row.tagId })
-MERGE ( m )-[: HAS_TAG { scores : row.relevance }]->( t );
+MERGE ( m )-[: HAS_TAG { scores : toFloat(row.relevance) }]->( t );
 LOAD CSV WITH HEADERS FROM "file:///follow.csv" AS row
 FIELDTERMINATOR ','
 MATCH ( u : user { username : row.username1 })
