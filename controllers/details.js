@@ -44,6 +44,9 @@ exports.post_test = (req,res,next) => {
         res.redirect('/movies');}
         else if(repage == "watched"){
         res.redirect('/watched');}
+        else if(repage=="recmovies"){
+            res.redirect('/recmovies');
+        }
         return
     }  
     else if(btype == "wa"){

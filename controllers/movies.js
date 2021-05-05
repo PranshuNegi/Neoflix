@@ -8,7 +8,7 @@ exports.get_test = (req,res,next) => {
     var session = neo4j.session;
     var it = [];
     session
-    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) ,  (u: user {username: $username}) where g.name <> "(no genres listed)" return m.movieId as id, m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , (case exists((u)-[:WATCHED]->(m)) when true then 1 else 0 end) as wn LIMIT 25;',{
+    .run('MATCH (m:movie)-[:OF_GENRE]->(g:genre) ,  (u: user {username: $username}) where g.name <> "(no genres listed)" and exists(m.imdbRating) return m.movieId as id, m.title as title, m.poster as poster, m.released as drelease, m.imdbRating as rating, m.duration as dur, COLLECT(g.name) as gen , (case exists((u)-[:WATCHED]->(m)) when true then 1 else 0 end) as wn order by m.imdbRating desc LIMIT 25;',{
         username: user
     })
     .then(result => {
@@ -41,6 +41,11 @@ exports.post_test = (req,res,next) => {
     if( btype == "md"){
         umovie = mid;
         repage = "movies";
+        res.redirect('/details');
+    }
+    else if( btype == "mdRec"){
+        umovie = mid;
+        repage = "recmovies";
         res.redirect('/details');
     }
     else if( btype == "fil"){

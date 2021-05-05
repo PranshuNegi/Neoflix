@@ -8,150 +8,324 @@
 <%- include('includes/nav.ejs') %>
 
 <main>
+    <h2> Based on similar users </h2>
     <div class="grid">
-    <table width="100%">
-    <tr><th>Based on your Favourite Actor and Genre</th><th>Based on your viewing history</th><th>Based on what similar users have watched</th></tr>
-    <tr>
-    <td>
-    <center>
-    <% for(var i=0; i < itlist0.length; i++) { %>
+        <% for(var i=0; i < itlist0.length; i++) { %>
             <article class="card product-item">
                 <header class="card__header">
-                    <h1 class="product__title">
+                    <h2 class="product__title">
                         <%=itlist0[i].title%>
-                    </h1>
+                    </h2>
                 </header>
                 <div class="card__image">
                     <img src = "<%=itlist0[i].image%>" alt= "<%=itlist0[i].title%>" height="150px">
                 </div>
                 <div class="card_content">
-                    <h3 class="product__description">
+                    <h4 class="product__description">
                         Date of Release: <%=itlist0[i].date_of_release%>
-                    </h3>
-                    <h3 class="product__description">
-                        IMDB rating: <%=itlist0[i].rating%>
-                    </h3>
-                    <h3 class="product__description">
+                    </h4>
+                    <h4 class="product__description" >
+                        IMDB Rating: <%=itlist0[i].rating%>
+                    </h4>
+                    <h4 class="product__description">
                         Duration: <%=itlist0[i].duration%>
-                    </h3>
-                    <h3 class="product__description">
+                    </h4>
+                    <h4 class="product__description">
                         Genre: <%=itlist0[i].genre%>
-                    </h3>
+                    </h4>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/movies" method="post">
                     <button class="btn" type="submit">
                     More Details
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist0[i].id %>">
+                    <input type="hidden" name="movie" value="<%= itlist0[i].id %>">
+                    <input type="hidden" name="b_type" value="mdRec">
                 </form>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/movies" method="post">
+                <% if(itlist0[i].watched == 1) { %>
+                <button type="button" disabled>
+                    Watched
+                </button>
+                <% } else { %>
                     <button class="btn" type="submit">
                     Watch
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist0[i].id %>">
-                </form>
-                </div>
-            </article>
-         <% } %>
-        </center>
-    </td>
-    <td>
-    <center>
-    <% for(var i=0; i < itlist.length; i++) { %>
-            <article class="card product-item">
-                <header class="card__header">
-                    <h1 class="product__title">
-                        <%=itlist[i].title%>
-                    </h1>
-                </header>
-                <div class="card__image">
-                    <img src = "<%=itlist[i].image%>" alt= "<%=itlist[i].title%>" height="150px">
-                </div>
-                <div class="card_content">
-                    <h3 class="product__description">
-                        Date of Release: <%=itlist[i].date_of_release%>
-                    </h3>
-                    <h3 class="product__description">
-                        IMDB rating: <%=itlist[i].rating%>
-                    </h3>
-                    <h3 class="product__description">
-                        Duration: <%=itlist[i].duration%>
-                    </h3>
-                    <h3 class="product__description">
-                        Genre: <%=itlist[i].genre%>
-                    </h3>
-                </div>
-                <div class="card__actions">
-                <form action="/cart" method="post">
-                    <button class="btn" type="submit">
-                    More Details
-                    </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
-                </form>
-                </div>
-                <div class="card__actions">
-                <form action="/cart" method="post">
-                    <button class="btn" type="submit">
-                    Watch
-                    </button>
-                    <input type="hidden" name="product_id" value="<%= itlist[i].id %>">
+                    <input type="hidden" name="movie" value="<%= itlist0[i].id %>">
+                    <input type="hidden" name="b_type" value="wa">
+                <% } %>
                 </form>
                 </div>
             </article>
          <% } %>
     </div>
-    </center>
-    </td>
-    <td>
-    <center>
-    <% for(var i=0; i < itlist2.length; i++) { %>
+
+    <h2> Based on followed Users </h2>
+    <div class="grid">
+        <% for(var i=0; i < itlist1.length; i++) { %>
             <article class="card product-item">
                 <header class="card__header">
-                    <h1 class="product__title">
+                    <h2 class="product__title">
+                        <%=itlist1[i].title%>
+                    </h2>
+                </header>
+                <div class="card__image">
+                    <img src = "<%=itlist1[i].image%>" alt= "<%=itlist1[i].title%>" height="150px">
+                </div>
+                <div class="card_content">
+                    <h4 class="product__description">
+                        Date of Release: <%=itlist1[i].date_of_release%>
+                    </h4>
+                    <h4 class="product__description" >
+                        IMDB Rating: <%=itlist1[i].rating%>
+                    </h4>
+                    <h4 class="product__description">
+                        Duration: <%=itlist1[i].duration%>
+                    </h4>
+                    <h4 class="product__description">
+                        Genre: <%=itlist1[i].genre%>
+                    </h4>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                    <button class="btn" type="submit">
+                    More Details
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist1[i].id %>">
+                    <input type="hidden" name="b_type" value="mdRec">
+                </form>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                <% if(itlist1[i].watched == 1) { %>
+                <button type="button" disabled>
+                    Watched
+                </button>
+                <% } else { %>
+                    <button class="btn" type="submit">
+                    Watch
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist1[i].id %>">
+                    <input type="hidden" name="b_type" value="wa">
+                <% } %>
+                </form>
+                </div>
+            </article>
+         <% } %>
+    </div>
+    <h2> Based on viewing history and ratings</h2>
+    <div class="grid">
+        <% for(var i=0; i < itlist2.length; i++) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h2 class="product__title">
                         <%=itlist2[i].title%>
-                    </h1>
+                    </h2>
                 </header>
                 <div class="card__image">
                     <img src = "<%=itlist2[i].image%>" alt= "<%=itlist2[i].title%>" height="150px">
                 </div>
                 <div class="card_content">
-                    <h3 class="product__description">
+                    <h4 class="product__description">
                         Date of Release: <%=itlist2[i].date_of_release%>
-                    </h3>
-                    <h3 class="product__description">
-                        IMDB rating: <%=itlist2[i].rating%>
-                    </h3>
-                    <h3 class="product__description">
+                    </h4>
+                    <h4 class="product__description" >
+                        IMDB Rating: <%=itlist2[i].rating%>
+                    </h4>
+                    <h4 class="product__description">
                         Duration: <%=itlist2[i].duration%>
-                    </h3>
-                    <h3 class="product__description">
+                    </h4>
+                    <h4 class="product__description">
                         Genre: <%=itlist2[i].genre%>
-                    </h3>
+                    </h4>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/movies" method="post">
                     <button class="btn" type="submit">
                     More Details
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist2[i].id %>">
+                    <input type="hidden" name="movie" value="<%= itlist2[i].id %>">
+                    <input type="hidden" name="b_type" value="mdRec">
                 </form>
                 </div>
                 <div class="card__actions">
-                <form action="/cart" method="post">
+                <form action="/movies" method="post">
+                <% if(itlist2[i].watched == 1) { %>
+                <button type="button" disabled>
+                    Watched
+                </button>
+                <% } else { %>
                     <button class="btn" type="submit">
                     Watch
                     </button>
-                    <input type="hidden" name="product_id" value="<%= itlist2[i].id %>">
+                    <input type="hidden" name="movie" value="<%= itlist2[i].id %>">
+                    <input type="hidden" name="b_type" value="wa">
+                <% } %>
                 </form>
                 </div>
             </article>
          <% } %>
-        </center>
-    </td>
-    </tr>
-    </table>
+    </div>
+    <h2> Based on most watched genre </h2>
+    <div class="grid">
+        <% for(var i=0; i < itlist3.length; i++) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h2 class="product__title">
+                        <%=itlist3[i].title%>
+                    </h2>
+                </header>
+                <div class="card__image">
+                    <img src = "<%=itlist3[i].image%>" alt= "<%=itlist3[i].title%>" height="150px">
+                </div>
+                <div class="card_content">
+                    <h4 class="product__description">
+                        Date of Release: <%=itlist3[i].date_of_release%>
+                    </h4>
+                    <h4 class="product__description" >
+                        IMDB Rating: <%=itlist3[i].rating%>
+                    </h4>
+                    <h4 class="product__description">
+                        Duration: <%=itlist3[i].duration%>
+                    </h4>
+                    <h4 class="product__description">
+                        Genre: <%=itlist3[i].genre%>
+                    </h4>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                    <button class="btn" type="submit">
+                    More Details
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist3[i].id %>">
+                    <input type="hidden" name="b_type" value="mdRec">
+                </form>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                <% if(itlist3[i].watched == 1) { %>
+                <button type="button" disabled>
+                    Watched
+                </button>
+                <% } else { %>
+                    <button class="btn" type="submit">
+                    Watch
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist3[i].id %>">
+                    <input type="hidden" name="b_type" value="wa">
+                <% } %>
+                </form>
+                </div>
+            </article>
+         <% } %>
+    </div>
+    <h2> Based on favourite actor </h2>
+    <div class="grid">
+        <% for(var i=0; i < itlist4.length; i++) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h2 class="product__title">
+                        <%=itlist4[i].title%>
+                    </h2>
+                </header>
+                <div class="card__image">
+                    <img src = "<%=itlist4[i].image%>" alt= "<%=itlist4[i].title%>" height="150px">
+                </div>
+                <div class="card_content">
+                    <h4 class="product__description">
+                        Date of Release: <%=itlist4[i].date_of_release%>
+                    </h4>
+                    <h4 class="product__description" >
+                        IMDB Rating: <%=itlist4[i].rating%>
+                    </h4>
+                    <h4 class="product__description">
+                        Duration: <%=itlist4[i].duration%>
+                    </h4>
+                    <h4 class="product__description">
+                        Genre: <%=itlist4[i].genre%>
+                    </h4>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                    <button class="btn" type="submit">
+                    More Details
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist4[i].id %>">
+                    <input type="hidden" name="b_type" value="mdRec">
+                </form>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                <% if(itlist4[i].watched == 1) { %>
+                <button type="button" disabled>
+                    Watched
+                </button>
+                <% } else { %>
+                    <button class="btn" type="submit">
+                    Watch
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist4[i].id %>">
+                    <input type="hidden" name="b_type" value="wa">
+                <% } %>
+                </form>
+                </div>
+            </article>
+         <% } %>
+    </div>
+    <h2> Based on favourite genre </h2>
+    <div class="grid">
+        <% for(var i=0; i < itlist5.length; i++) { %>
+            <article class="card product-item">
+                <header class="card__header">
+                    <h2 class="product__title">
+                        <%=itlist5[i].title%>
+                    </h2>
+                </header>
+                <div class="card__image">
+                    <img src = "<%=itlist5[i].image%>" alt= "<%=itlist5[i].title%>" height="150px">
+                </div>
+                <div class="card_content">
+                    <h4 class="product__description">
+                        Date of Release: <%=itlist5[i].date_of_release%>
+                    </h4>
+                    <h4 class="product__description" >
+                        IMDB Rating: <%=itlist5[i].rating%>
+                    </h4>
+                    <h4 class="product__description">
+                        Duration: <%=itlist5[i].duration%>
+                    </h4>
+                    <h4 class="product__description">
+                        Genre: <%=itlist5[i].genre%>
+                    </h4>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                    <button class="btn" type="submit">
+                    More Details
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist5[i].id %>">
+                    <input type="hidden" name="b_type" value="mdRec">
+                </form>
+                </div>
+                <div class="card__actions">
+                <form action="/movies" method="post">
+                <% if(itlist5[i].watched == 1) { %>
+                <button type="button" disabled>
+                    Watched
+                </button>
+                <% } else { %>
+                    <button class="btn" type="submit">
+                    Watch
+                    </button>
+                    <input type="hidden" name="movie" value="<%= itlist5[i].id %>">
+                    <input type="hidden" name="b_type" value="wa">
+                <% } %>
+                </form>
+                </div>
+            </article>
+         <% } %>
+    </div>
 </main>
 <%- include('includes/end.ejs') %>

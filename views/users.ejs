@@ -54,7 +54,95 @@
                 </tr>
             <% } %>
     </table>
-    <h1>Similar users</h1>
+    <h1>Followers</h1>
+        <table border=1 width="75%"">
+            <tr>
+                <h3>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Favorite Genres</th>
+                <th>Favorite Actors</th></h3>
+            </tr>
+            <% for(var i=0; i < itlist3.length; i++) { %>
+                <tr>
+                    <td>
+                        <%=itlist3[i].name%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].age%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].gender%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].genre%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].actor%>
+                    </td>
+                    <td>
+                        <% if(itlist3[i].follows == 1) { %>
+                <form action="/users" method="post">
+                            <button class="btn" type="submit">
+                            Unfollow
+                            </button>
+                            <input type="hidden" name="us" value="<%= itlist3[i].uname %>">
+                            <input type="hidden" name="b_type" value="ufl">
+                </form>
+                <% } else { %>
+                    <form action="/users" method="post">
+                    <button class="btn" type="submit">
+                    Follow
+                    </button>
+                    <input type="hidden" name="us" value="<%= itlist3[i].uname %>">
+                    <input type="hidden" name="b_type" value="fl">
+                </form>
+                <% } %>
+                    </td>
+                </tr>
+            <% } %>
+    </table>
+    <h1>Users followed by users you follow</h1>
+    <table border=1 width="75%"">
+        <tr>
+            <h3>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Favorite Genres</th>
+            <th>Favorite Actors</th></h3>
+        </tr>
+        <% for(var i=0; i < itlist2.length; i++) { %>
+            <tr>
+                <td>
+                    <%=itlist2[i].name%>
+                </td>
+                <td>
+                    <%=itlist2[i].age%>
+                </td>
+                <td>
+                    <%=itlist2[i].gender%>
+                </td>
+                <td>
+                    <%=itlist2[i].genre%>
+                </td>
+                <td>
+                    <%=itlist2[i].actor%>
+                </td>
+                <td>
+                <form action="/users" method="post">
+                    <button class="btn" type="submit">
+                    Follow
+                    </button>
+                    <input type="hidden" name="us" value="<%= itlist2[i].uname %>">
+                    <input type="hidden" name="b_type" value="fl">
+                </form>
+                </td>
+            </tr>
+        <% } %>
+</table>
+    <h1>Similar users based on viewing history</h1>
     <table border=1 width="75%"">
         <tr>
             <h3>
