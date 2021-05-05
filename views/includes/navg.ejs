@@ -1,0 +1,44 @@
+<div class="backdrop"></div>
+<header class="main-header">
+    <button id="side-menu-toggle">Menu</button>
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+
+            <li class="main-header__item">
+                <a class="<%= path === '/addmovie' ? 'active' : '' %>" href="/addmovie">Movie</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/addgenre' ? 'active' : '' %>" href="/addgenre">Genre</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/addperson' ? 'active' : '' %>" href="/addperson">Person</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/addtag' ? 'active' : '' %>" href="/addtag">Tags</a>
+            </li>
+            <li class="main-header__item">
+                <a class="<%= path === '/mlogin' ? 'active' : '' %>" href="/mlogin">Logout</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<nav class="mobile-nav">
+        <ul class="mobile-nav__item-list">
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/addmovie' ? 'active' : '' %>" href="/addmovie">Movie</a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/addgenre' ? 'active' : '' %>" href="/addgenre">Genre</a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/addperson' ? 'active' : '' %>" href="/addperson">Person</a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/addtag' ? 'active' : '' %>" href="/addtag">Tags</a>
+                </li>
+                <li class="mobile-nav__item">
+                    <a class="<%= path === '/mlogin' ? 'active' : '' %>" href="/mlogin">Logout</a>
+                </li>
+            </ul>
+</nav>

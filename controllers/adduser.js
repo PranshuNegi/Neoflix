@@ -131,7 +131,7 @@ exports.post_test = (req,res,next) => {
         });
         return
     }
-    if(uname.length > 256){
+    if(uname.length > 256 || uname == ""){
         res.render('adduser', {
             status: 0,
             pageTitle: 'Sign Up',

@@ -1,0 +1,66 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
+</head>
+
+<body>
+<%- include('includes/navg.ejs') %>
+
+<main>
+    <form class="product-form" action="http://localhost:3000/addmovie" method="POST">
+        <div class="form-control">
+            <label for="name">Movie ID</label>
+            <input type="text" name="movid" id="movid" value="<% if (editing) { %><%= movie.id %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="name">Title</label>
+            <input type="text" name="title" id="title" value="<% if (editing) { %><%= movie.name %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="date_of_release">Date of Release</label>
+            <input type="date" name="date_of_release" id="date_of_release" value="<% if (editing) { %><%= movie.date_of_release %><% } %>">
+        </div>
+        <label for="genre">Genre of the Movie</label><br>
+        <select class="js-example-basic-multiple" multiple="multiple" id="genre" name="genre">
+        <% for(var i=0; i < genre.length; i++) { %>
+            <option value="<%=genre[i]%>"><%=genre[i]%></option>
+        <% } %>
+        </select><br>
+            <label for="actor">Actors</label><br>
+            <select class="js-example-basic-multiple" multiple="multiple" id="actor" name="actor">
+            <% for(var i=0; i < actor.length; i++) { %>
+                <option value="<%=actor[i]%>"><%=actor[i]%></option>
+            <% } %>
+            </select><br>
+            <label for="director">Director</label><br>
+            <select class="js-example-basic-multiple" multiple="multiple" id="director" name="director">
+            <% for(var i=0; i < director.length; i++) { %>
+                <option value="<%=director[i]%>"><%=director[i]%></option>
+            <% } %>
+            </select><br>
+        <input type="hidden" name="b_type" value="add">
+        <button class="btn" type="submit">Add Movie</button>
+    </form>
+    <center><h2>Delete an existing Movie</h2></center>
+    <form class="product-form" action="http://localhost:3000/addperson" method="POST">
+        <div class="form-control">
+            <% if(status == 404 && bt=="del") {%>
+                <p style="color:red;font-size:15px" >*The movie with movieId "<%=pid%>" does not exist. Try deleting a different movie.</p>
+            <% } else if(status == 1 && bt=="del") { %>
+                <p style="color:green;font-size:15px" >Successfully deleted movie with movieId "<%=pid%>".</p>
+            <% } %>
+            <label for="id">Movie ID</label>
+            <input type="text" name="id" id="id" value="<% if (editing && bt=='del') { %><%= pid %><% } %>">
+            <input type="hidden" name="b_type" value="del">
+        <button class="btn" type="submit">Delete Movie</button>
+    </form>
+</main>
+<%- include('includes/end.ejs') %>
