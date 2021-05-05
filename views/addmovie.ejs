@@ -53,14 +53,14 @@
     <form class="product-form" action="http://localhost:3000/addperson" method="POST">
         <div class="form-control">
             <% if(status == 404 && bt=="del") {%>
-                <p style="color:red;font-size:15px" >*The person with personId "<%=pid%>" does not exist. Try deleting a different user.</p>
+                <p style="color:red;font-size:15px" >*The movie with movieId "<%=pid%>" does not exist. Try deleting a different movie.</p>
             <% } else if(status == 1 && bt=="del") { %>
-                <p style="color:green;font-size:15px" >Successfully deleted person with personId "<%=pid%>".</p>
+                <p style="color:green;font-size:15px" >Successfully deleted movie with movieId "<%=pid%>".</p>
             <% } %>
-            <label for="id">Person ID</label>
+            <label for="id">Movie ID</label>
             <input type="text" name="id" id="id" value="<% if (editing && bt=='del') { %><%= pid %><% } %>">
             <input type="hidden" name="b_type" value="del">
-        <button class="btn" type="submit">Delete Person</button>
+        <button class="btn" type="submit">Delete Movie</button>
     </form>
 </main>
 <%- include('includes/end.ejs') %>
