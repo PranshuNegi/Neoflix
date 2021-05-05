@@ -6,7 +6,7 @@ exports.get_test = (req,res,next) => {
         return;
     }   
     res.render('addgenre', {
-        pageTitle: 'Add Genre',
+        pageTitle: 'Add or Delete Genre',
         path: '/addgenre',
         bt: null,
         status: 0
@@ -35,7 +35,7 @@ exports.post_test = (req,res,next) => {
                         console.log(error)
                     })
                     res.render('addgenre', {
-                        pageTitle: 'Add Genre',
+                        pageTitle: 'Add or Delete Genre',
                         path: '/addgenre',
                         gn: genre,
                         bt: "add",
@@ -44,7 +44,7 @@ exports.post_test = (req,res,next) => {
                 }
             else{
                 res.render('addgenre', {
-                    pageTitle: 'Add Genre',
+                    pageTitle: 'Add or Delete Genre',
                     path: '/addgenre',
                     bt: "add",
                     status: 404
@@ -64,7 +64,7 @@ exports.post_test = (req,res,next) => {
             .then(result => {
                 if(result.records.length == 0){
                     res.render('addgenre', {
-                        pageTitle: 'Add Genre',
+                        pageTitle: 'Add or Delete Genre',
                         path: '/addgenre',
                         bt: "del",
                         gn: genre,
@@ -83,7 +83,7 @@ exports.post_test = (req,res,next) => {
                             console.log(error)
                         })
                         res.render('addgenre', {
-                            pageTitle: 'Add Genre',
+                            pageTitle: 'Add or Delete Genre',
                             path: '/addgenre',
                             gn: genre,
                             bt: "del",

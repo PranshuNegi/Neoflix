@@ -39,12 +39,12 @@
     <form class="product-form" action="http://localhost:3000/addperson" method="POST">
         <div class="form-control">
             <% if(status == 404 && bt=="del") {%>
-                <p style="color:red;font-size:15px" >*The person with personId "<%=pid%>" does not exist. Try deleting a different user.</p>
+                <p style="color:red;font-size:15px" >*No person with personId "<%=pid%>" exists. Try deleting a different person.</p>
             <% } else if(status == 1 && bt=="del") { %>
                 <p style="color:green;font-size:15px" >Successfully deleted person with personId "<%=pid%>".</p>
             <% } %>
             <label for="id">Person ID</label>
-            <input type="text" name="id" id="id" value="<% if (editing && bt=="del") { %><%= pid %><% } %>">
+            <input type="text" name="id" id="id" value="">
             <input type="hidden" name="b_type" value="del">
         <button class="btn" type="submit">Delete Person</button>
     </form>

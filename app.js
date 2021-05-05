@@ -18,6 +18,7 @@ const mlogin = require('./routes/mlogin');
 const addmovie = require('./routes/addmovie');
 const addgenre = require('./routes/addgenre');
 const addperson = require('./routes/addperson');
+const addtag = require('./routes/addtag');
 // const pool =  require('./utils/database');
 const neo = require('./models/neo4j.js')
 
@@ -46,6 +47,7 @@ app.use('/mlogin',mlogin);
 app.use('/addmovie',addmovie);
 app.use('/addgenre',addgenre);
 app.use('/addperson',addperson);
+app.use('/addtag',addtag);
 app.listen(3000);
 
 module.exports = app

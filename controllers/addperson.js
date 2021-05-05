@@ -6,7 +6,7 @@ exports.get_test = (req,res,next) => {
         return;
     }   
     res.render('addperson', {
-        pageTitle: 'Add Person',
+        pageTitle: 'Add or Delete Person',
         path: '/addperson',
         editing: false,
         bt: null,
@@ -29,7 +29,7 @@ exports.post_test = (req,res,next) => {
             if(result.records.length == 0){
                 if(role == null){
                     res.render('addperson', {
-                        pageTitle: 'Add Person',
+                        pageTitle: 'Add or Delete Person',
                         path: '/addperson',
                         editing: true,
                         pn: name,
@@ -51,7 +51,7 @@ exports.post_test = (req,res,next) => {
                                 console.log(error)
                             })
                             res.render('addperson', {
-                                pageTitle: 'Add Person',
+                                pageTitle: 'Add or Delete Person',
                                 path: '/addperson',
                                 pn: name,
                                 editing: false,
@@ -72,7 +72,7 @@ exports.post_test = (req,res,next) => {
                                 console.log(error)
                             })
                             res.render('addperson', {
-                                pageTitle: 'Add Person',
+                                pageTitle: 'Add or Delete Person',
                                 path: '/addperson',
                                 pn: name,
                                 editing: false,
@@ -93,7 +93,7 @@ exports.post_test = (req,res,next) => {
                                 console.log(error)
                             })
                             res.render('addperson', {
-                                pageTitle: 'Add Person',
+                                pageTitle: 'Add or Delete Person',
                                 path: '/addperson',
                                 pn: name,
                                 editing: false,
@@ -105,7 +105,7 @@ exports.post_test = (req,res,next) => {
             }
             else{
                 res.render('addperson', {
-                    pageTitle: 'Add Person',
+                    pageTitle: 'Add or Delete Person',
                     path: '/addperson',
                     status: 403,
                     editing: true,
@@ -127,9 +127,9 @@ exports.post_test = (req,res,next) => {
         .then(result => {
             if(result.records.length == 0){
                     res.render('addperson', {
-                        pageTitle: 'Add Person',
+                        pageTitle: 'Add or Delete Person',
                         path: '/addperson',
-                        editing: true,
+                        editing: false,
                         pid: pid,
                         bt: "del",
                         status: 404
@@ -144,7 +144,7 @@ exports.post_test = (req,res,next) => {
                     })
                     .then(result => {
                         res.render('addperson', {
-                            pageTitle: 'Add Person',
+                            pageTitle: 'Add or Delete Person',
                             path: '/addperson',
                             editing: false,
                             pid: pid,
