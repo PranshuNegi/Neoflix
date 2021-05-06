@@ -15,12 +15,13 @@ exports.get_test = (req,res,next) => {
 };
 
 exports.post_test = (req,res,next) => {
-    const tid = req.body.id;
     const btype = req.body.b_type;
     if(btype == "add"){
     const name = req.body.name;
     var session = neo4j.session;
-    session
+    session.run('MATCH (t:tag) return max(toInteger(t.tagId))+1 as tid;').then(resultTid=>{
+        var tid=resultTid.records[0].get('tid').toString();
+        session
         .run('MATCH (t:tag {tagId: $taid}) RETURN t.tagId as td;',{
             taid: tid
         })
@@ -59,9 +60,11 @@ exports.post_test = (req,res,next) => {
         })
         .catch(error => {
             console.log(error)
-        })
+        });
+    });
     }
     else{
+        var tid = req.body.id;
         var session = neo4j.session;
         session
         .run('MATCH (t:tag {tagId: $taid}) RETURN t.tagId as td;',{

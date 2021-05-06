@@ -15,9 +15,6 @@
             <% } else if(status == 1 && bt== "add") { %>
                 <p style="color:green;font-size:15px" >Successfully added tag "<%=tn%>".</p>
             <% } %>
-            <p style="color:red;font-size:15px" >**Tag Id should be unique.</p>
-            <label for="id">Tag ID</label>
-            <input type="text" name="id" id="id" value="">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" value="<% if (editing && bt=="add") { %><%= tn %><% } %>">
         </div>

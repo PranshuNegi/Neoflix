@@ -15,13 +15,15 @@ exports.get_test = (req,res,next) => {
 };
 
 exports.post_test = (req,res,next) => {
-    const pid = req.body.id;
+    var pid = req.body.id;
     const btype = req.body.b_type;
     if(btype == "add"){
     const name = req.body.name;
     const role = req.body.role;
     var session = neo4j.session;
-    session
+    session.run('MATCH (p:person) return max(toInteger(p.personId))+1 as pid').then(resultPid=>{
+      pid=resultPid.records[0].get('pid').toString();
+      session
         .run('MATCH (p:person {personId: $peid}) RETURN p.personId as pd;',{
             peid: pid
         })
@@ -116,7 +118,8 @@ exports.post_test = (req,res,next) => {
         })
         .catch(error => {
             console.log(error)
-        })
+        })  
+    })
     }
     else{
         var session = neo4j.session;

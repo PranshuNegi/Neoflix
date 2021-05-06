@@ -80,8 +80,13 @@ exports.get_test = (req,res,next) => {
 
 exports.post_test = (req,res,next) => {
     const btype = req.body.b_type;
-    const mid = req.body.movid;
-    if(btype == "add"){        
+    var mid = req.body.movid;
+    var session2=neo4j.session;
+    session2.run('MATCH (m:movie) return max(toInteger(m.movieId))+1 as mid;').then(resultMid=>{
+        
+        // console.log(movieId);
+        if(btype == "add"){
+        mid=resultMid.records[0].get('mid').toString();        
         const title = req.body.title;
         const plot = req.body.plot;
         const duration = req.body.duration;
@@ -317,5 +322,7 @@ exports.post_test = (req,res,next) => {
             console.log(error)
         })
     }
+    });
+    
     
 };

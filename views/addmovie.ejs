@@ -21,11 +21,6 @@
         <% } else if(status == 1 && bt== "add") { %>
             <p style="color:green;font-size:15px" >Successfully added movie "<%=pn%>".</p>
         <% } %>
-        <p style="color:red;font-size:15px" >**Movie Id should be unique.</p>
-        <div class="form-control">
-            <label for="name">Movie ID</label>
-            <input type="text" name="movid" id="movid" value="<% if (editing) { %><%= movie.id %><% } %>">
-        </div>
         <div class="form-control">
             <label for="name">Title</label>
             <input type="text" name="title" id="title" value="<% if (editing) { %><%= movie.name %><% } %>">
@@ -73,7 +68,6 @@
         <% } %>
         </select><br>
         <label for="tags">Tags</label><br>
-        <p style="color:red;font-size:15px" >**Add exactly two tags.</p>
         <select class="js-example-basic-multiple" multiple="multiple" id="tags" name="tags">
         <% for(var i=0; i < tags.length; i++) { %>
             <option value="<%=tags[i]%>"><%=tags[i]%></option>
