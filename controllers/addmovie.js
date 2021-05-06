@@ -4,6 +4,7 @@ var genre_list = [];
 var actor_list = [];
 var director_list = [];
 var tag_list = [];
+var movs = [];
 exports.get_test = (req,res,next) => {    
     if(!mlog){
         res.redirect('\mlogin');
@@ -13,6 +14,7 @@ exports.get_test = (req,res,next) => {
     actor_list = [];
     director_list = [];
     tag_list = [];
+    movs = [];
     var session = neo4j.session;
     session
     .run('MATCH (g:genre) where g.name <> "(no genres listed)" return g.name AS name;',{
@@ -47,6 +49,14 @@ exports.get_test = (req,res,next) => {
                 result4.records.forEach(record4 => {
                     tag_list.push(record4.get('name'));
                 })
+            session
+            .run('MATCH (m:movie) RETURN m.title AS name;',{
+        
+            })
+            .then(result5 => {
+                result5.records.forEach(record5 => {
+                    movs.push(record5.get('name'));
+                })
             res.render('addmovie', {
                 status: 0,
                 pageTitle: 'Add Movie',
@@ -57,7 +67,8 @@ exports.get_test = (req,res,next) => {
                 director: director_list,
                 tags: tag_list,
                 fgenre: [],
-                factor: []
+                factor: [],
+                mov: movs
             });
             })
         .catch(error => {
@@ -74,6 +85,10 @@ exports.get_test = (req,res,next) => {
 })
 .catch(error => {
     console.log(error)
+})
+})
+.catch(error => {
+    console.log(error)
 })   
 	
 };
@@ -82,10 +97,11 @@ exports.post_test = (req,res,next) => {
     const btype = req.body.b_type;
     var mid = req.body.movid;
     var session2=neo4j.session;
+    if(btype == "add"){
     session2.run('MATCH (m:movie) return max(toInteger(m.movieId))+1 as mid;').then(resultMid=>{
         
         // console.log(movieId);
-        if(btype == "add"){
+        
         mid=resultMid.records[0].get('mid').toString();        
         const title = req.body.title;
         const plot = req.body.plot;
@@ -100,6 +116,7 @@ exports.post_test = (req,res,next) => {
         var tags = req.body.tags;
         var relevance = req.body.relevance;
         var session = neo4j.session;
+        var movs2 = [];
         session
         .run('MATCH (n:movie {movieId: $mmid}) RETURN n.movieId as pd;', {
             mmid: mid
@@ -119,7 +136,8 @@ exports.post_test = (req,res,next) => {
                             fgenre: [],
                             factor: [],
                             bt: "add",
-                            pn: mid
+                            pn: mid,
+                            mov: movs
                         }); 
                     }
                     else{
@@ -172,7 +190,8 @@ exports.post_test = (req,res,next) => {
                                                     fgenre: [],
                                                     factor: [],
                                                     bt: "add",
-                                                    pn: mid
+                                                    pn: mid,
+                                                    mov: movs
                                                 });
                                                 return
                                             }
@@ -191,7 +210,8 @@ exports.post_test = (req,res,next) => {
                                                         fgenre: [],
                                                         factor: [],
                                                         bt: "add",
-                                                        pn: mid
+                                                        pn: mid,
+                                                        mov: movs
                                                     });
                                                     return
                                                 }
@@ -203,7 +223,51 @@ exports.post_test = (req,res,next) => {
                                                 session.run('MATCH (m:movie {movieId: $mmid}) MATCH (g:tag {name: $lis}) MERGE (m)-[:HAS_TAG {scores: $lis2}]->(g);', {
                                                     mmid:mid, lis:tags[1], lis2: rel_list[1]
                                                 })
-                                                .then(result => {})
+                                                .then(result => {
+                                                    session.run('MATCH ( m : movie {movieId:$mmid}) - [: OF_GENRE ] -> ( g : genre ) <- [: OF_GENRE ] -\
+                                                    ( other : movie ) WITH m , other , COUNT ( g ) AS intersection , COLLECT ( g . name ) AS i\
+                                                    MATCH ( m )-[: OF_GENRE ]->( mg : genre )\
+                                                    WITH m , other , intersection , i , COLLECT ( mg . name ) AS s1\
+                                                    MATCH ( other )-[: OF_GENRE ]->( og : genre )\
+                                                    WITH m , other , intersection , i , s1 , COLLECT ( og . name ) AS s2\
+                                                    WITH m , other , intersection , s1 , s2\
+                                                    WITH m as m1 , other as m2 ,(( 1.0 * intersection)/ ( size( s1)+size(s2)-intersection)) as g_sim\
+                                                    MATCH (m1)-[r1:HAS_TAG]->(t:tag)<-[r2:HAS_TAG]-(m2) with m1,m2,count(t) as comtags,g_sim\
+                                                    MATCH ( m1)-[ r1 : HAS_TAG ]->(t1: tag ) with m1,m2,comtags,count(t1) as m1tags,g_sim\
+                                                    MATCH ( m2)-[ r2 : HAS_TAG ]->(t2: tag ) with m1,m2,comtags,count(t2) as m2tags,g_sim,m1tags\
+                                                    WITH m1,m2,0.5 * ((1.0*comtags)/(m2tags+m1tags-comtags)) + 0.5 * g_sim as similarity\
+                                                    with m1,m2,similarity order by similarity desc limit 5 MERGE ( m1 )-[: MOVIE_SIM_MOVIE { relevance : similarity }]-( m2 );', {
+                                                        mmid:mid
+                                                    })
+                                                    .then(result => {
+                                                        session
+                                                        .run('MATCH (m:movie) RETURN m.title AS name;',{
+                                                    
+                                                        })
+                                                        .then(result5 => {
+                                                            result5.records.forEach(record5 => {
+                                                                movs2.push(record5.get('name'));
+                                                            })
+                                                            res.render('addmovie', {
+                                                                status: 1,
+                                                                pageTitle: 'Add Movie',
+                                                                path: '/addmovie',
+                                                                editing: false,
+                                                                genre: genre_list,
+                                                                actor: actor_list,
+                                                                director: director_list,
+                                                                tags: tag_list,
+                                                                fgenre: [],
+                                                                factor: [],
+                                                                bt: "add",
+                                                                pn: mid,
+                                                                mov: movs2
+                                                            });
+                                                    })
+                                                    .catch(error => {
+                                                        console.log(error)
+                                                    })
+                                                })
                                                 .catch(error => {
                                                     console.log(error)
                                                 })
@@ -227,20 +291,11 @@ exports.post_test = (req,res,next) => {
                             .catch(error => {
                                 console.log(error)
                             })
-                            res.render('addmovie', {
-                                status: 1,
-                                pageTitle: 'Add Movie',
-                                path: '/addmovie',
-                                editing: false,
-                                genre: genre_list,
-                                actor: actor_list,
-                                director: director_list,
-                                tags: tag_list,
-                                fgenre: [],
-                                factor: [],
-                                bt: "add",
-                                pn: mid
-                            }); 
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                             
                      return;
                     }
                 }
@@ -257,17 +312,19 @@ exports.post_test = (req,res,next) => {
                         fgenre: [],
                         factor: [],
                         bt: "add",
-                        pn: mid
+                        pn: mid,
+                        mov: movs
                     });
                 }
             })
             .catch(error => {
                 console.log(error)
             })
-            
+        });    
         return
     }
     else{
+        console.log(mid)
         var session = neo4j.session;
         session
         .run('MATCH (n:movie {title: $mmid}) RETURN n.movieId as pd;',{
@@ -287,17 +344,27 @@ exports.post_test = (req,res,next) => {
                     fgenre: [],
                     factor: [],
                     bt: "del",
-                    pn: mid
+                    pn: mid,
+                    mov: movs
                 });
                     return;
                 }
                 else{
+                    var movs2 = []
                     var session = neo4j.session;
                     session
                     .run('MATCH (m:movie {title: $mmid}) DETACH DELETE m',{
                         mmid: mid
                     })
                     .then(result => {
+                        session
+                        .run('MATCH (m:movie) RETURN m.title AS name;',{
+                        
+                        })
+                        .then(result5 => {
+                        result5.records.forEach(record5 => {
+                            movs2.push(record5.get('name'));
+                        })
                         res.render('addmovie', {
                             status: 1,
                             pageTitle: 'Add Movie',
@@ -310,8 +377,14 @@ exports.post_test = (req,res,next) => {
                             fgenre: [],
                             factor: [],
                             bt: "del",
-                            pn: mid
-                        }); 
+                            pn: mid,
+                            mov: movs2
+                        });
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                         
                     })
                     .catch(error => {
                         console.log(error)
@@ -322,7 +395,7 @@ exports.post_test = (req,res,next) => {
             console.log(error)
         })
     }
-    });
+   
     
     
 };
