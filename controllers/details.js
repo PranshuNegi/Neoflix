@@ -11,10 +11,25 @@ exports.get_test = (req,res,next) => {
     }
     var session = neo4j.session;
     session
-    .run('MATCH (u:user)- [r:WATCHED]->(m:movie {movieId:$movieid}) WHERE r.rating <> -1 WITH avg(r.rating) as average_rating MATCH (m:movie {movieId: $movieid})<-[:DIRECTED_IN]-(d:director) MATCH (m:movie {movieId: $movieid})<-[:ACTED_IN]-(a:actor) MATCH (m:movie {movieId: $movieid})-[:OF_GENRE]->(g:genre) RETURN m.title as title, m.released as rl, m.imdbRating as ir, m.duration as dur,  m.poster as poster, m.plot as plt, COLLECT(distinct d.name) as dir, COLLECT(distinct a.name) as act, COLLECT(distinct g.name) as gen, average_rating as avg;',{
+    .run('MATCH (u:user)-[r:WATCHED]->(m:movie {movieId:$movieid}) WHERE r.rating <> -1 WITH avg(r.rating) as average_rating,m  RETURN m.title as title, m.released as rl, m.imdbRating as ir, m.duration as dur,  m.poster as poster, m.plot as plt, average_rating as avg;',{
         movieid: umovie
     })
     .then(result => {
+    session
+    .run('MATCH (m:movie {movieId: $movieid})<-[:DIRECTED_IN]-(d:director) return COLLECT(distinct d.name) as dir;',{
+        movieid: umovie
+    })
+    .then(result2 => {
+    session
+    .run('MATCH (m:movie {movieId: $movieid})<-[:ACTED_IN]-(a:actor) return COLLECT(distinct a.name) as act;',{
+        movieid: umovie
+    })
+    .then(result3 => {
+        session
+        .run('MATCH (m:movie {movieId: $movieid})-[:OF_GENRE]->(g:genre) return COLLECT(distinct g.name) as gen;',{
+            movieid: umovie
+    })
+        .then(result4 => {
         res.render('details', {
             pageTitle: 'Details',
             path: '/details',
@@ -27,10 +42,22 @@ exports.get_test = (req,res,next) => {
                 imdbrating: result.records[0].get('ir'),
                 avgrating: result.records[0].get('avg'),
                 duration: result.records[0].get('dur'),
-                genre: result.records[0].get('gen'),
-                actor: result.records[0].get('act'),
-                director: result.records[0].get('dir')}
+                genre: result4.records[0].get('gen'),
+                actor: result3.records[0].get('act'),
+                director: result2.records[0].get('dir')}
         });
+    })
+    .catch(error => {
+        console.log(error)
+    })
+})
+.catch(error => {
+    console.log(error)
+})
+})
+.catch(error => {
+    console.log(error)
+})
     })
     .catch(error => {
         console.log(error)
