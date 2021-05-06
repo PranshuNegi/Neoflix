@@ -7,6 +7,67 @@
 <body>
 <%- include('includes/nav.ejs') %>
 <main>
+    <% if (need == 1){ %>
+    <form action="/users" method="post">
+        <input type="text" id="search" placeholder="Search for users.." name="search" title="Type in a name">
+            <button class="btn" type="submit">
+                Search  
+            </button>
+            <input type="hidden" name="b_type" value="sch">
+            <button class="btn" type="submit">
+                Clear 
+            </button>
+            <input type="hidden" name="b_type" value="clr">
+        </form>
+        <table border=1 width="75%"">
+            <tr>
+                <h3>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Favorite Genres</th>
+                <th>Favorite Actors</th></h3>
+            </tr>
+            <% for(var i=0; i < itlist3.length; i++) { %>
+                <tr>
+                    <td>
+                        <%=itlist3[i].name%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].age%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].gender%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].genre%>
+                    </td>
+                    <td>
+                        <%=itlist3[i].actor%>
+                    </td>
+                    <td>
+                        <% if(itlist3[i].follows == 1) { %>
+                <form action="/users" method="post">
+                            <button class="btn" type="submit">
+                            Unfollow
+                            </button>
+                            <input type="hidden" name="us" value="<%= itlist3[i].uname %>">
+                            <input type="hidden" name="b_type" value="ufl">
+                </form>
+                <% } else { %>
+                    <form action="/users" method="post">
+                    <button class="btn" type="submit">
+                    Follow
+                    </button>
+                    <input type="hidden" name="us" value="<%= itlist3[i].uname %>">
+                    <input type="hidden" name="b_type" value="fl">
+                </form>
+                <% } %>
+                    </td>
+                </tr>
+            <% } %>
+    </table>
+    <% } else { %>
     <form action="/users" method="post">
         <input type="text" id="search" placeholder="Search for users.." name="search" title="Type in a name">
             <button class="btn" type="submit">
@@ -182,5 +243,6 @@
         <% } %>
 </table>
     </div>
+    <% } %>
 </main>
 <%- include('includes/end.ejs') %>
