@@ -50,11 +50,17 @@
             </div>
             <div class="d__actions">
                 <form action="/details" method="post">
-                    <button class="btn" type="submit">
-                    Watch
-                    </button>
+                <% if(mdetails.watched == 1) { %>
+                <button type="button" disabled>
+                        Watched
+                </button>
+                <% } else { %>
+                <button class="btn" type="submit">
+                Watch
+                </button>
                     <input type="hidden" name="b_type" value="wa">
                     <input type="hidden" name="movie" value="<%= mdetails.id %>">
+                <% } %>
                 </form>
                 </div>
                 <div class="d__actions">
