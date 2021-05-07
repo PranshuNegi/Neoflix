@@ -90,7 +90,12 @@
                 <p style="color:green;font-size:15px" >Successfully deleted movie with title "<%=pn%>".</p>
             <% } %>
             <label for="id">Title</label>
-            <input type="text" name="movid" id="movid" value="<% if (editing && bt=='del') { %><%= pn %><% } %>">
+            <!-- <input type="text" name="movid" id="movid" value="<% if (editing && bt=='del') { %><%= pn %><% } %>"> -->
+            <select class="js-example-basic-single" id="movid" name="movid">
+                <% for(var i=0; i < mov.length; i++) { %>
+                    <option value="<%=mov[i]%>"><%=mov[i]%></option>
+                <% } %>
+                </select><br>
             <input type="hidden" name="b_type" value="del">
         <button class="btn" type="submit">Delete Movie</button>
     </form>
