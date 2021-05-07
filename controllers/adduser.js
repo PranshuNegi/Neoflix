@@ -46,11 +46,11 @@ exports.get_test = (req,res,next) => {
 };
 
 exports.post_test = (req,res,next) => {
-    const name = req.body.name;
-    const dob = req.body.date_of_birth;
-    const diff = 2021 - Number(dob.slice(0, 4));
-    const age = diff.toString();
-    const gender = req.body.gender;
+    var name = req.body.name;
+    var dob = req.body.date_of_birth;
+    var diff = 2021 - Number(dob.slice(0, 4));
+    var age = diff.toString();
+    var gender = req.body.gender;
     const genre = req.body.genre;
     const favactor = req.body.favactor;
     const uname = req.body.username;
@@ -203,6 +203,12 @@ exports.post_test = (req,res,next) => {
                     });
             }
             else{
+                // console.log(name);
+                // console.log(dob);
+                // console.log(gender);
+                if(name=="") name=null;
+                if(dob=="") {age=null;dob=null;}
+                if(gender==undefined) gender=null;
                 var session2 = neo4j.session;
                 session2
                 .run('CREATE (:user {username: $username,name: $name,dob: $dob,age: $age,gender: $gender, password: $password});', {
