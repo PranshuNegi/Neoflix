@@ -19,6 +19,8 @@ const addmovie = require('./routes/addmovie');
 const addgenre = require('./routes/addgenre');
 const addperson = require('./routes/addperson');
 const addtag = require('./routes/addtag');
+const alogin = require('./routes/alogin');
+const pmovie = require('./routes/pmovie');
 // const pool =  require('./utils/database');
 const neo = require('./models/neo4j.js')
 
@@ -28,6 +30,9 @@ global.umovie = null;
 global.repage = null;
 global.mlog = false;
 global.pswd = "cs387@project";
+global.pd = "cs387@analyst";
+global.alog = false;
+
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended:true}));
@@ -48,6 +53,8 @@ app.use('/addmovie',addmovie);
 app.use('/addgenre',addgenre);
 app.use('/addperson',addperson);
 app.use('/addtag',addtag);
+app.use('/alogin',alogin);
+app.use('/pmovie',pmovie);
 app.listen(3000);
 
 module.exports = app
