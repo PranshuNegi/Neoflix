@@ -38,7 +38,6 @@
             <% } %>
             <label for="female">Female</label><br>
             <label for="favgenre">Favourite Genre</label><br>
-                <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
                 <select class="js-example-basic-multiple" multiple="multiple" id="genre" name="genre">
                 <% for(var i=0; i < genre.length; i++) { %>
                     <% if(fgenre.includes(genre[i])) { %>
@@ -49,7 +48,6 @@
                 <% } %>
                     </select><br>
             <label for="favactor">Favourite Actor</label><br>
-            <font style="color:red;font-size:15px" >*Please select at least two.</font><br>
             <select class="js-example-basic-multiple" multiple="multiple" id="favactor" name="favactor">
             <% for(var i=0; i < actor.length; i++) { %>
             <% if(factor.includes(actor[i])) { %>

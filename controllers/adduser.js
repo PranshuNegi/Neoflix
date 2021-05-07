@@ -51,90 +51,22 @@ exports.post_test = (req,res,next) => {
     const diff = 2021 - Number(dob.slice(0, 4));
     const age = diff.toString();
     const gender = req.body.gender;
-    const genre = req.body.genre;
-    const favactor = req.body.favactor;
+    var genre = req.body.genre;
+    var favactor = req.body.favactor;
     const uname = req.body.username;
     const pswd = req.body.password;
     const cpswd = req.body.cpassword;
-    if(genre == undefined || favactor == undefined){
-        res.render('adduser', {
-            status: 0,
-            pageTitle: 'Sign Up',
-            path: '/adduser',
-            editing: true,
-            user: {
-                name: name,
-                age: age,
-                date_of_birth: dob,
-                gender: gender,
-                username: ""},
-            genre: genre_list,
-            actor: actor_list,
-            fgenre: [],
-            factor: [],
-            error_message: 'Please select atleast 2 favorite actors and 2 favorite genres'
-        });
-        return
+    if(genre == undefined){
+        genre = [];
     }
-    if(typeof(genre)=="string" && typeof(favactor)=="string"){
-        res.render('adduser', {
-            status: 0,
-            pageTitle: 'Sign Up',
-            path: '/adduser',
-            editing: true,
-            user: {
-                name: name,
-                age: age,
-                date_of_birth: dob,
-                gender: gender,
-                username: ""},
-            genre: genre_list,
-            actor: actor_list,
-            fgenre: [],
-            factor: [],
-            error_message: 'Please select atleast 2 favorite actors and 2 favorite genres'
-        });
-        return
+    else if(typeof(genre)=="string"){
+        genre = [genre];
     }
-    if(typeof(favactor)=="string"){
-        res.render('adduser', {
-            status: 0,
-            pageTitle: 'Sign Up',
-            path: '/adduser',
-            editing: true,
-            user: {
-                name: name,
-                age: age,
-                date_of_birth: dob,
-                gender: gender,
-                username: ""},
-            genre: genre_list,
-            actor: actor_list,
-            fgenre: genre,
-            factor: [],
-            error_message: 'Please select atleast 2 favorite actors'
-        });
-        return
+    if(favactor == undefined){
+        favactor = [];
     }
-    if(typeof(genre)=="string"){
-        res.render('adduser', {
-            status: 0,
-            pageTitle: 'Sign Up',
-            path: '/adduser',
-            editing: true,
-            user: {
-                name: name,
-                age: age,
-                date_of_birth: dob,
-                gender: gender,
-                username: ""},
-            genre: genre_list,
-            actor: actor_list,
-            fgenre: [],
-            factor: favactor,
-            error_message: 'Please select atleast 2 favorite genres'
-        });
-        return
+    else if(typeof(favactor)=="string"){
+        favactor = [favactor];
     }
     if(uname.length > 256 || uname == ""){
         res.render('adduser', {
