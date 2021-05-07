@@ -5,8 +5,12 @@
 <body>
 <%- include('includes/navgg.ejs') %>
 <main>
-    <form action="/users" method="post">
+    <form action="/pmovie" method="post">
+        <% if(status == 404) {%>
+            <p style="color:red;font-size:15px" >*Upper Limit should be greater than equal to Lower Limit.</p>
+        <% } %>
         <label for="lowlimit"><b>Age: </b></label>
+        <input type="hidden" name="age" value="">
         <label for="lowlimit">Lower Limit</label>
         <input type="number" id="lowlimit" name="lowlimit" title="lowlimit">
         <label for="highlimit">Upper Limit</label>
@@ -16,6 +20,14 @@
             </button>
             <input type="hidden" name="b_type" value="sch">
     </form>
+    <% if(clr == 1) { %>
+    <form action="/pmovie" method="post">
+        <button class="btn" type="submit">
+            Clear 
+        </button>
+        <input type="hidden" name="b_type" value="clr">
+    </form>
+    <% } %>
     <table border=1 width="75%"">
         <tr>
             <h3>
