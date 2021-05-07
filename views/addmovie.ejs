@@ -17,7 +17,7 @@
 <main>
     <form class="product-form" action="http://localhost:3000/addmovie" method="POST">
         <% if((status == 404 || status == 403 ) && bt == "add") {%>
-            <p style="color:red;font-size:15px" >*Couldn't add movie "<%=pn%>". Try Again.</p>
+            <p style="color:red;font-size:15px" >*Couldn't add movie. Try Again.</p>
         <% } else if(status == 1 && bt== "add") { %>
             <p style="color:green;font-size:15px" >Successfully added movie "<%=pn%>".</p>
         <% } %>
@@ -85,7 +85,7 @@
     <form class="product-form" action="http://localhost:3000/addmovie" method="POST">
         <div class="form-control">
             <% if(status == 404 && bt=="del") {%>
-                <p style="color:red;font-size:15px" >*The movie with title "<%=pn%>" does not exist. Try deleting a different movie.</p>
+                <p style="color:red;font-size:15px" >*This movie does not exist. Try deleting a different movie.</p>
             <% } else if(status == 1 && bt=="del") { %>
                 <p style="color:green;font-size:15px" >Successfully deleted movie</p>
             <% } %>
