@@ -1,0 +1,37 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+<%- include('includes/navgg.ejs') %>
+<main>
+    <% if (itlist.length==0) {%>
+    <h1> No results found </h1> 
+    <%} else {%>
+    <table border=1 width="75%"">
+        <tr>
+            <h3>
+            <th>Genre</th>
+            <th>Favorite of</th>
+            </h3>
+        </tr>
+        <% for(var i=0; i < itlist.length; i++) { %>
+            <tr>
+                <td>
+                    <%=itlist[i].name%>
+                </td>
+                <% if(itlist[i].num == 1) { %>
+                <td>
+                    <%=itlist[i].num%> User
+                </td>
+                <% } else { %>
+                    <td>
+                        <%=itlist[i].num%> Users
+                    </td>
+                <% } %>
+            </tr>
+        <% } %>
+</table>
+<% } %>
+</main>
+<%- include('includes/end.ejs') %>

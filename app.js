@@ -21,6 +21,9 @@ const addperson = require('./routes/addperson');
 const addtag = require('./routes/addtag');
 const alogin = require('./routes/alogin');
 const pmovie = require('./routes/pmovie');
+const pactor = require('./routes/pactor');
+const pusers = require('./routes/pusers');
+const pgenre = require('./routes/pgenre');
 // const pool =  require('./utils/database');
 const neo = require('./models/neo4j.js')
 
@@ -55,6 +58,9 @@ app.use('/addperson',addperson);
 app.use('/addtag',addtag);
 app.use('/alogin',alogin);
 app.use('/pmovie',pmovie);
+app.use('/pactor',pactor);
+app.use('/pusers',pusers);
+app.use('/pgenre',pgenre);
 app.listen(3000);
 
 module.exports = app
