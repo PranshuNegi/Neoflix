@@ -1,0 +1,14 @@
+Popular Actors:
+MATCH (m:movie)<-[r:ACTED_IN]-(a:actor) return a,count(m) as number order by number desc limit 10
+
+Popular Movies:
+MATCH (m:movie)<-[r:WATCHED]-(u:user) return m,count(u) as number order by number desc limit 10 
+
+Popular Users:
+MATCH (u1:user)<-[r:FOLLOW]-(u:user) return u1,count(u) as number order by number desc limit 10
+
+Top 3 favorite genres:
+MATCH (g:genre)<-[r:FAV_GENRE]-(u:user) return g,count(u) as number order by number desc limit 3;
+
+Movies popular among age group of 10 to 20 :
+MATCH (m:movie)<-[:WATCHED]-(u:user) where toInteger(u.age)<=20 and toInteger(u.age)>=10 return m, count(m) as number order by number desc limit 10;
