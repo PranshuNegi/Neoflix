@@ -26,8 +26,8 @@ exports.get_test = (req,res,next) => {
     })
     .then(result3 => {
         session
-        .run('MATCH (m:movie {movieId: $movieid})-[:OF_GENRE]->(g:genre) return COLLECT(distinct g.name) as gen;',{
-            movieid: umovie
+        .run('MATCH (m:movie {movieId: $movieid})-[:OF_GENRE]->(g:genre),  (u: user {username: $username}) return (case exists((u)-[:WATCHED]->(m)) when true then 1 else 0 end) as wn, COLLECT(distinct g.name) as gen;',{
+            movieid: umovie, username: user
     })
         .then(result4 => {
         res.render('details', {
@@ -44,7 +44,8 @@ exports.get_test = (req,res,next) => {
                 duration: result.records[0].get('dur'),
                 genre: result4.records[0].get('gen'),
                 actor: result3.records[0].get('act'),
-                director: result2.records[0].get('dir')}
+                director: result2.records[0].get('dir'),
+                watched: result4.records[0].get('wn'),}
         });
     })
     .catch(error => {
