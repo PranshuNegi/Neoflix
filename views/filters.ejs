@@ -1,6 +1,14 @@
 <%- include('includes/head.ejs') %>
 <link rel="stylesheet" href="/css/forms.css">
 <link rel="stylesheet" href="/css/product.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2();
+    });
+</script>
 </head>
 
 <body style="background-color:white">
@@ -23,6 +31,18 @@
         <input type="text" name="low" id="low" value="">
     <br><label for="high"><font style="color:red;font-size:15px" >IMDb Rating highest</font></label>
         <input type="text" name="high" id="high" value="">
+        <br><label for="actor">Actors</label><br>
+    <select class="js-example-basic-multiple" multiple="multiple" id="actor" name="actor">
+    <% for(var i=0; i < actor.length; i++) { %>
+        <option value="<%=actor[i]%>"><%=actor[i]%></option>
+    <% } %>
+    </select><br>
+    <label for="director">Director</label><br>
+    <select class="js-example-basic-multiple" multiple="multiple" id="director" name="director">
+    <% for(var i=0; i < director.length; i++) { %>
+        <option value="<%=director[i]%>"><%=director[i]%></option>
+    <% } %>
+    </select><br>
     <br><button class="btn" type="submit">Apply</button>
     </form>
 </main>
