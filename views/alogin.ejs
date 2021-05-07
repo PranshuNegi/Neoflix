@@ -1,0 +1,22 @@
+<%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="/css/forms.css">
+<link rel="stylesheet" href="/css/product.css">
+</head>
+<body>
+
+<main>
+    <% if(!alog) { %>
+    <center><h2>Enter Password to continue</h2></center>
+    <form class="product-form" action="http://localhost:3000/alogin" method="POST">
+        <div class="form-control">
+            <% if(status == 404) {%>
+                <p style="color:red;font-size:15px" >*Enter correct password.</p>
+            <% } %>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="">
+        <button class="btn" type="submit">Login</button>
+    </div>
+    </form>
+    <% } %>
+</main>
+<%- include('includes/end.ejs') %>
