@@ -59,7 +59,7 @@ exports.get_test = (req,res,next) => {
                 })
             res.render('addmovie', {
                 status: 0,
-                pageTitle: 'Add Movie',
+                pageTitle: 'Add or Delete Movie',
                 path: '/addmovie',
                 editing: false,
                 genre: genre_list,
@@ -126,7 +126,7 @@ exports.post_test = (req,res,next) => {
                     if(title == null || title == ""){
                         res.render('addmovie', {
                             status: 404,
-                            pageTitle: 'Add Movie',
+                            pageTitle: 'Add or Delete Movie',
                             path: '/addmovie',
                             editing: false,
                             genre: genre_list,
@@ -180,7 +180,7 @@ exports.post_test = (req,res,next) => {
                                             if(tags.length!=rel_list.length || tags.length > 2 || tags.length < 2){
                                                 res.render('addmovie', {
                                                     status: 403,
-                                                    pageTitle: 'Add Movie',
+                                                    pageTitle: 'Add or Delete Movie',
                                                     path: '/addmovie',
                                                     editing: false,
                                                     genre: genre_list,
@@ -200,7 +200,7 @@ exports.post_test = (req,res,next) => {
                                                 if(rel_list[k]>1 || rel_list[k]<=0){
                                                     res.render('addmovie', {
                                                         status: 403,
-                                                        pageTitle: 'Add Movie',
+                                                        pageTitle: 'Add or Delete Movie',
                                                         path: '/addmovie',
                                                         editing: false,
                                                         genre: genre_list,
@@ -250,7 +250,7 @@ exports.post_test = (req,res,next) => {
                                                             })
                                                             res.render('addmovie', {
                                                                 status: 1,
-                                                                pageTitle: 'Add Movie',
+                                                                pageTitle: 'Add or Delete Movie',
                                                                 path: '/addmovie',
                                                                 editing: false,
                                                                 genre: genre_list,
@@ -302,7 +302,7 @@ exports.post_test = (req,res,next) => {
                 else{
                     res.render('addmovie', {
                         status: 403,
-                        pageTitle: 'Add Movie',
+                        pageTitle: 'Add or Delete Movie',
                         path: '/addmovie',
                         editing: false,
                         genre: genre_list,
@@ -334,7 +334,7 @@ exports.post_test = (req,res,next) => {
             if(result.records.length == 0){
                 res.render('addmovie', {
                     status: 404,
-                    pageTitle: 'Add Movie',
+                    pageTitle: 'Add or Delete Movie',
                     path: '/addmovie',
                     editing: false,
                     genre: genre_list,
@@ -367,7 +367,7 @@ exports.post_test = (req,res,next) => {
                         })
                         res.render('addmovie', {
                             status: 1,
-                            pageTitle: 'Add Movie',
+                            pageTitle: 'Add or Delete Movie',
                             path: '/addmovie',
                             editing: false,
                             genre: genre_list,
