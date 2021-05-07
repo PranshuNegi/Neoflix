@@ -15,8 +15,23 @@
             <input type="text" name="username" id="username" value="">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" value="">
+            <input type="hidden" name="b_type" value="lg">
         </div>
         <button class="btn" type="submit">Login</button>
+    </form>
+    <form class="product-form" action="http://localhost:3000/login" method="POST" style="float:left;position:absolute;">
+        <div class="form-control">
+            <input type="hidden" name="b_type" value="mlg">
+            <button class="btn" type="submit">Switch to Manager Role</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <form class="product-form" action="http://localhost:3000/login" method="POST" style="float:left;position:absolute;">
+        <div class="form-control">
+            <input type="hidden" name="b_type" value="alg">
+            <button class="btn" type="submit">Switch to Analyst Role</button>
+        </div>
     </form>
 </main>
 <%- include('includes/end.ejs') %>

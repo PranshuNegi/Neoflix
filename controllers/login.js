@@ -11,6 +11,8 @@ exports.get_test = (req,res,next) => {
 };
 
 exports.post_test = (req,res,next) => {
+    const btype = req.body.b_type;
+    if(btype == "lg"){
     const uname = req.body.username;
     const pswd = req.body.password;
     var ps;
@@ -48,4 +50,11 @@ exports.post_test = (req,res,next) => {
         .catch(error => {
         console.log(error)
         })
+    }
+    else if(btype == "alg"){
+        res.redirect('/alogin');
+    }
+    else{
+        res.redirect('/mlogin');
+    }
 };

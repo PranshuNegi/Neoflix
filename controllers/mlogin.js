@@ -3,6 +3,7 @@ var neo4j = require('../models/neo4j');
 exports.get_test = (req,res,next) => {
     user = null;
     mlog = false;
+    alog = false;
 	res.render('mlogin', {
         pageTitle: 'Manager',
         path: '/mlogin',
@@ -11,6 +12,8 @@ exports.get_test = (req,res,next) => {
 };
 
 exports.post_test = (req,res,next) => {
+    const btype = req.body.b_type;
+    if(btype == "lg"){
     const paswd = req.body.password;
     if(paswd == pswd){
         mlog = true;
@@ -23,4 +26,11 @@ exports.post_test = (req,res,next) => {
             status: 404
         });
     }
+}
+else if(btype == "alg"){
+    res.redirect('/alogin');
+}
+else{
+    res.redirect('/login');
+}
 };

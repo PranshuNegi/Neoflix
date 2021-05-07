@@ -5,7 +5,6 @@
 <body>
 
 <main>
-    <% if(!alog) { %>
     <center><h2>Enter Password to continue</h2></center>
     <form class="product-form" action="http://localhost:3000/alogin" method="POST">
         <div class="form-control">
@@ -14,9 +13,23 @@
             <% } %>
             <label for="password">Password</label>
             <input type="password" name="password" id="password" value="">
+            <input type="hidden" name="b_type" value="lg">
         <button class="btn" type="submit">Login</button>
     </div>
     </form>
-    <% } %>
+    <form class="product-form" action="http://localhost:3000/alogin" method="POST" style="float:left;position:absolute;">
+        <div class="form-control">
+            <input type="hidden" name="b_type" value="ulg">
+        <button class="btn" type="submit">Switch to User Role</button>
+    </div>
+    </form>
+    <br>
+    <br>
+    <form class="product-form" action="http://localhost:3000/alogin" method="POST" style="float:left;position:absolute;">
+        <div class="form-control">
+            <input type="hidden" name="b_type" value="mlg">
+        <button class="btn" type="submit">Switch to Manager Role</button>
+        </div>
+    </form>
 </main>
 <%- include('includes/end.ejs') %>
