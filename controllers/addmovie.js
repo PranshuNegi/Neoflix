@@ -260,7 +260,7 @@ exports.post_test = (req,res,next) => {
                                                                 fgenre: [],
                                                                 factor: [],
                                                                 bt: "add",
-                                                                pn: mid,
+                                                                pn: title,
                                                                 mov: movs2
                                                             });
                                                     })
