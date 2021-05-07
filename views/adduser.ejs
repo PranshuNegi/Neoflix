@@ -16,6 +16,7 @@
 
 <main>
     <form class="product-form" action="http://localhost:3000/adduser" method="POST">
+        <font style="color:red;font-size:15px" ><%= error_message %></font><br>
         <div class="form-control">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" value="<% if (editing) { %><%= user.name %><% } %>">

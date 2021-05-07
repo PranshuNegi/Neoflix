@@ -30,6 +30,8 @@
     <% } %> 
     </div>
     <div class="grid">
+        <% if (itlist.length==0) {%>
+        <h1> No results found </h1> <%}%>
         <% for(var i=0; i < itlist.length; i++) { %>
             <article class="card product-item">
                 <header class="card__header">

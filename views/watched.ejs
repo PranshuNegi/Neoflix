@@ -11,6 +11,8 @@
 
 <main>
     <div class="grid">
+    <% if (itlist.length==0) {%>
+        <h1> No movies watched yet </h1> <%}%>
         <% for(var i=0; i < itlist.length; i++) { %>
             <article class="card product-item">
                 <header class="card__header">

@@ -31,7 +31,8 @@ exports.get_test = (req,res,next) => {
                 genre: genre_list,
                 actor: actor_list,
                 fgenre: [],
-                factor: []
+                factor: [],
+                error_message:""
             });
         })
         .catch(error => {
@@ -70,7 +71,8 @@ exports.post_test = (req,res,next) => {
             genre: genre_list,
             actor: actor_list,
             fgenre: [],
-            factor: []
+            factor: [],
+            error_message: 'Please select atleast 2 favorite actors and 2 favorite genres'
         });
         return
     }
@@ -89,7 +91,8 @@ exports.post_test = (req,res,next) => {
             genre: genre_list,
             actor: actor_list,
             fgenre: [],
-            factor: []
+            factor: [],
+            error_message: 'Please select atleast 2 favorite actors and 2 favorite genres'
         });
         return
     }
@@ -108,7 +111,8 @@ exports.post_test = (req,res,next) => {
             genre: genre_list,
             actor: actor_list,
             fgenre: genre,
-            factor: []
+            factor: [],
+            error_message: 'Please select atleast 2 favorite actors'
         });
         return
     }
@@ -127,7 +131,8 @@ exports.post_test = (req,res,next) => {
             genre: genre_list,
             actor: actor_list,
             fgenre: [],
-            factor: favactor
+            factor: favactor,
+            error_message: 'Please select atleast 2 favorite genres'
         });
         return
     }
@@ -146,7 +151,8 @@ exports.post_test = (req,res,next) => {
             actor: actor_list,
             fgenre: genre,
             factor: favactor,
-            editing: true
+            editing: true,
+            error_message: 'Length of username should be less than 256 and should not be an empty string'
             });
             return
     }
@@ -173,7 +179,8 @@ exports.post_test = (req,res,next) => {
                         actor: actor_list,
                         fgenre: genre,
                         factor: favactor,
-                        editing: true
+                        editing: true,
+                        error_message:'Password field and Confirm password field are not same'
                         });
                 }
             else if(!re.test(pswd)){
@@ -191,7 +198,8 @@ exports.post_test = (req,res,next) => {
                     actor: actor_list,
                     fgenre: genre,
                     factor: favactor,
-                    editing: true
+                    editing: true,
+                    error_message:'Password should be of the specified form'
                     });
             }
             else{
@@ -242,7 +250,8 @@ exports.post_test = (req,res,next) => {
                     actor: actor_list,
                     fgenre: genre,
                     factor: favactor,
-                    editing: true
+                    editing: true,
+                    error_message: 'Username is already in use, choose different username'
                     });
             }
         })

@@ -21,6 +21,7 @@
             </button>
             <input type="hidden" name="b_type" value="clr">
     </form>
+        <% if(itlist3.length==0){%><h2>No results</h2> <%} else {%>
         <table border=1 width="75%"">
             <tr>
                 <h3>
@@ -69,6 +70,7 @@
                 </tr>
             <% } %>
     </table>
+    <% } %>
     <% } else { %>
     <form action="/users" method="post">
         <input type="text" id="search" placeholder="Search for users.." name="search" title="Type in a name">
@@ -79,6 +81,7 @@
         </form>
     <div style="color:black">
         <h1>Users Followed</h1>
+        <% if(itlist.length==0){%><h2>No users followed yet</h2> <%} else {%>
         <table border=1 width="75%"">
             <tr>
                 <h3>
@@ -117,7 +120,9 @@
                 </tr>
             <% } %>
     </table>
+    <% } %>
     <h1>Followers</h1>
+        <% if(itlist3.length==0){%><h2>No users follows you yet</h2> <%} else {%>
         <table border=1 width="75%"">
             <tr>
                 <h3>
@@ -166,7 +171,9 @@
                 </tr>
             <% } %>
     </table>
+    <% } %>
     <h1>Users followed by users you follow</h1>
+    <% if(itlist2.length==0){%><h2>No results</h2> <%} else {%>
     <table border=1 width="75%"">
         <tr>
             <h3>
@@ -205,7 +212,9 @@
             </tr>
         <% } %>
 </table>
+<% } %>
     <h1>Similar users based on viewing history</h1>
+    <% if(itlist1.length==0){%><h2>No results</h2> <%} else {%>
     <table border=1 width="75%"">
         <tr>
             <h3>
@@ -244,6 +253,7 @@
             </tr>
         <% } %>
 </table>
+<% } %>
     </div>
     <% } %>
 </main>

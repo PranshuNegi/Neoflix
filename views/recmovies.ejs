@@ -8,6 +8,7 @@
 <%- include('includes/nav.ejs') %>
 
 <main>
+    <% if(itlist0.length==0){} else {%>
     <h2> Based on similar users </h2>
     <div class="grid">
         <% for(var i=0; i < itlist0.length; i++) { %>
@@ -61,7 +62,8 @@
             </article>
          <% } %>
     </div>
-
+    <% } %>
+    <% if(itlist1.length==0){} else {%>
     <h2> Based on followed Users </h2>
     <div class="grid">
         <% for(var i=0; i < itlist1.length; i++) { %>
@@ -115,6 +117,8 @@
             </article>
          <% } %>
     </div>
+    <% } %>
+    <% if(itlist2.length==0){} else {%>
     <h2> Based on viewing history and ratings</h2>
     <div class="grid">
         <% for(var i=0; i < itlist2.length; i++) { %>
@@ -168,6 +172,8 @@
             </article>
          <% } %>
     </div>
+    <% } %>
+    <% if(itlist3.length==0){} else {%>
     <h2> Based on most watched genre </h2>
     <div class="grid">
         <% for(var i=0; i < itlist3.length; i++) { %>
@@ -221,6 +227,8 @@
             </article>
          <% } %>
     </div>
+    <% } %>
+    <% if(itlist4.length==0){} else {%>
     <h2> Based on favourite actor </h2>
     <div class="grid">
         <% for(var i=0; i < itlist4.length; i++) { %>
@@ -274,6 +282,8 @@
             </article>
          <% } %>
     </div>
+    <% } %>
+    <% if(itlist5.length==0){} else {%>
     <h2> Based on favourite genre </h2>
     <div class="grid">
         <% for(var i=0; i < itlist5.length; i++) { %>
@@ -327,5 +337,6 @@
             </article>
          <% } %>
     </div>
+    <% } %>
 </main>
 <%- include('includes/end.ejs') %>
