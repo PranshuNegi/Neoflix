@@ -1,4 +1,5 @@
-# Neoflix, is a state-of-the-art web application where users can watch movies and the recommender system will suggest more movies to the user, implemented using a graph database.
+# Neoflix
+Neoflix is a state-of-the-art web application where users can watch movies and the recommender system will suggest more movies to the user, implemented using neo4j and nodejs.
 # Authentication: 
 Neoflix grants a separate movie viewing experience to each user done via password protected account login system. The personalized meta-data and data coming from each account will help in providing recommendations to the users. Password protected account with login, sign up. Authentication for Manager and Analyst
 # User-friendly: 
